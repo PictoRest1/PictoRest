@@ -1,6 +1,5 @@
 <?php
-namespace controleur;
-require "Rest_api.php";
+namespace Controleur;
 
 class FrontControleur{
 	
