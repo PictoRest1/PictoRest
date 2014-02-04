@@ -1,5 +1,11 @@
 <?php
 namespace Controleur;
+\Slim\Slim::registerAutoloader();
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Capsule\Manager as DB;
+
+require \Modele\ConnectionFactory.php;
 
 class FrontControleur{
 	
@@ -19,15 +25,22 @@ class FrontControleur{
                         echo 'Bienvenue sur PictoRest'; }
                 );
 
-                $app->get( '/rest/users', function() use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->processApi(); }
-                );
 
                 $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get($id) ;}
-                );
+                    $sql = "select * from Abonne where idUtil = :id";
+                    try {
+                        $db = ConnectionFactory::getConnection();
+                        $stmt = $db->prepare($sql);
+                        $stmt->bindParam("id", $id);
+                        $stmt->execute();
+                        $users = $stmt->fetchAll(PDO::FETCH_OBJ);
+                        $db = null;
+                        echo '{"user": ' . json_encode($users) . '}';
+                        echo "LALAL";
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
 
                 $app->get( '/rest/users/:id/albums', function($id) use ($app) {
                         $c = new Rest_api($app) ;

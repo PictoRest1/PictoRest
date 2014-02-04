@@ -74,9 +74,10 @@ ENGINE = InnoDB;
 -- Table `pictorest`.`Abonne`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pictorest`.`Abonne` (
+  `idAbonne` INT NOT NULL,
   `idAlbum` INT NOT NULL,
   `idutil` INT NOT NULL,
-  PRIMARY KEY (`idAlbum`, `idutil`),
+  PRIMARY KEY (`idAbonne`),
   INDEX `fk_Abonne_Utilisateur1_idx` (`idutil` ASC),
   CONSTRAINT `fk_Abonne_Album1`
     FOREIGN KEY (`idAlbum`)
