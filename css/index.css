@@ -1,0 +1,210 @@
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;	
+	
+}
+a{
+	color:white;
+	text-decoration:none;
+}
+html,body{
+	height:100%;
+	width:100%;	
+}
+body{
+	background:#9d85bf;	
+	font-family:'Lato', sans-serif;
+	font-weight:300;
+}
+.bouton_general{
+	background:#3e4dad;
+	padding:5px 10px;
+	color:white;
+	border:none;
+	cursor:pointer;	
+	transition:all ease 1s;
+}
+.bouton_general:hover{
+	transition:all ease 1s;
+	background:#757cab;	
+}
+.barre_de_nav{
+	width:100%;
+	position:fixed;
+	background:#000;
+}
+.barre_de_nav ul{
+	list-style:none;	
+
+}
+.barre_de_nav li{
+	padding:0px 10px 0px 10px;
+	color:white;
+	float:left;
+	height:60px;	
+	line-height:60px;
+	transition:all ease .5s;
+}
+.barre_de_nav li:hover{
+	background:#35418a;
+	transition:all ease .5s;	
+	
+}
+.barre_de_nav li h1{
+	font-size: 2em;
+	font-variant: small-caps;
+	font-weight: 300;
+}
+.barre_de_nav li a{
+	display:block;
+	height:100%;
+	width:100%;	
+	font-variant:small-caps;
+}
+.barre_de_nav li form{
+	float: left;
+	margin:18px 0px 0px 0px;	
+}
+.barre_de_nav li form input{
+	border:none;
+	margin:0px 10px 0px 10px;
+	padding:5px 8px;		
+}
+.barre_de_nav .droit{
+	float:right;
+}
+.barre_de_nav .barre_style{
+	opacity:0.5;
+	background:#2b0066;
+	height:10px;	
+}
+
+/*Connexion*/
+
+.connexion,.inscription{
+	position:absolute;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);	
+	display:none;
+	z-index: 100000;
+}
+.connexion .bloque_co,.inscription .bloque_ins{
+	background:white;
+	max-width:400px;		
+	padding: 20px 20px;
+	text-align:center;
+	margin: 6% auto 0px auto;	
+}
+.connexion .bloque_co h2,.inscription .bloque_ins h2{
+	font-weight:300;
+	color:#3e4dad;
+	margin:0px 0px 20px 0px;	
+}
+.connexion .bloque_co #close_co,.inscription .bloque_ins #close_ins{
+	background: black;
+	color: white;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	float: right;
+	margin: -30px -30px 0px 0px;
+	cursor:pointer;
+	border:2px solid white;
+	transition:all ease .3s;
+	
+}
+.connexion .bloque_co #close_co:hover, .inscription .bloque_ins #close_ins:hover{
+	transition:all ease .3s;
+	background:#900;
+}
+.connexion .bloque_co input,.inscription .bloque_ins input{
+	max-width: 250px;
+	width: 100%;
+	background: #CCC;
+	border: none;
+	padding: 5px 10px;
+	margin: 0px 0px 15px 0px;
+}
+
+/*Inscription*/
+
+
+/*Resultat*/
+.resultat{
+	padding:60px 0px 0px 0px;	
+	
+}
+.resultat ul{
+	
+}
+.resultat ul li{
+	height:300px;
+	width:20%;
+	cursor:pointer;
+	float:left;
+	list-style:none;
+	position:relative;
+}
+.resultat ul li:nth-child(4n+1){
+	background:#0ca7d3;
+}
+.resultat ul li:nth-child(4n+2){
+	background:#044c62;
+}
+.resultat ul li:nth-child(4n+3){
+	background:#15cbff;
+}
+.resultat ul li:nth-child(4n+4){
+	background:#0785ab;
+}
+.resultat ul li .images{
+	height: 200px;
+	background: white;
+	
+	width: 80%;
+	margin: 20px auto 15px auto;
+	display: block;		
+}
+.resultat ul li .selected{
+	height:100%;
+	width:100%;
+	background:white;
+	opacity:0;
+	transition:all ease .5s;
+	position:absolute;
+	top:0;
+}
+.resultat ul li:hover .selected{
+	opacity:0.7;
+	transition:all ease .5s;	
+}
+.resultat ul li .selected img{
+	position: absolute;
+	top: 45%;
+	right: 48%;	
+	
+}
+.resultat ul li h2{
+	font-weight:300;
+	color:white;
+	margin:0px 0px 0px 10px;
+}
+.resultat ul li h3{
+	font-weight:300;
+	color:white;
+	margin:0px 0px 0px 10px;
+}
+
+@media screen and (max-width: 960px){
+		.resultat ul li{
+			width:33.33333333333%;
+		}
+	
+}
+@media screen and (max-width: 640px){
+		.resultat ul li{
+			width:50%;
+		}
+}
