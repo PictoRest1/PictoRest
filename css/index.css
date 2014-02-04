@@ -10,7 +10,8 @@ a{
 }
 html,body{
 	height:100%;
-	width:100%;	
+	width:100%;
+        min-width: 265px;
 }
 body{
 	background:#9d85bf;	
@@ -34,6 +35,7 @@ body{
 	position:fixed;
 	background:#000;
         z-index: 1000;
+        min-width: 265px;
 }
 .barre_de_nav ul{
 	list-style:none;	
@@ -93,7 +95,7 @@ body{
 /*Connexion*/
 
 .connexion,.inscription{
-	position:absolute;
+	position:fixed;
 	height:100%;
 	width:100%;
 	background:rgba(0,0,0,0.5);	
@@ -220,17 +222,35 @@ body{
         .barre_de_nav li{
             width: 50%;
             padding: 0px 0px 0px 0px;
+            height: 45px;
+            line-height: 45px;
+        }
+        .resultat{
+            padding: 90px 0px 0px 0px;
+        }
+        .barre_de_nav li form{
+            margin:10px auto 0px auto;
         }
 }
 
 @media screen and (max-width: 515px){
     .barre_de_nav .full_size{
-        width: 100%;
-        
+        width: 100%; 
     }
-    
+    .resultat{
+        padding: 135px 0px 0px 0px;
+     }
 }
 @media screen and (max-width: 480px){
-        
+        .connexion .bloque_co, .inscription .bloque_ins {
+            max-width: none;
+            padding: 20px 20px;
+            text-align: center;
+            margin:0;
+            height: 100%;
+        }
+        .connexion .bloque_co #close_co, .inscription .bloque_ins #close_ins{
+            margin: -22px -22px 0px 0px;
+        }
     
 }
