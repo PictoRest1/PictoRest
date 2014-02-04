@@ -144,14 +144,13 @@ body{
 
 
 /*Resultat*/
-.resultat{
-	padding:60px 0px 0px 0px;	
-	
+.resultat,.profile{
+	padding:60px 0px 0px 0px;
 }
 .resultat ul{
 	
 }
-.resultat ul li{
+.resultat ul li,.profile ul li{
 	height:300px;
 	width:20%;
 	cursor:pointer;
@@ -159,19 +158,31 @@ body{
 	list-style:none;
 	position:relative;
 }
-.resultat ul li:nth-child(4n+1){
+.resultat ul .photo:nth-child(4n+1){
 	background:#0ca7d3;
 }
-.resultat ul li:nth-child(4n+2){
+.resultat ul .photo:nth-child(4n+2){
 	background:#044c62;
 }
-.resultat ul li:nth-child(4n+3){
+.resultat ul .photo:nth-child(4n+3){
 	background:#15cbff;
 }
-.resultat ul li:nth-child(4n+4){
+.resultat ul .photo:nth-child(4n+4){
 	background:#0785ab;
 }
-.resultat ul li .images{
+.profile ul .album:nth-child(4n+1){
+	background:#0ca7d3;
+}
+.profile ul .album:nth-child(4n+2){
+	background:#044c62;
+}
+.profile ul .album:nth-child(4n+3){
+	background:#15cbff;
+}
+.profile ul .album:nth-child(4n+4){
+	background:#0785ab;
+}
+.resultat ul li .images,.profile ul li .images{
 	height: 200px;
 	background: white;
 	
@@ -179,7 +190,7 @@ body{
 	margin: 20px auto 15px auto;
 	display: block;		
 }
-.resultat ul li .selected{
+.resultat ul li .selected,.profile ul li .selected{
 	height:100%;
 	width:100%;
 	background:white;
@@ -188,11 +199,11 @@ body{
 	position:absolute;
 	top:0;
 }
-.resultat ul li:hover .selected{
+.resultat ul li:hover .selected,.profile ul li:hover .selected{
 	opacity:0.7;
 	transition:all ease .5s;	
 }
-.resultat ul li .selected img{
+.resultat ul li .selected img,.profile ul li .selected img{
 	position: absolute;
 	top: 45%;
 	right: 48%;	
@@ -203,20 +214,26 @@ body{
 	color:white;
 	margin:0px 0px 0px 10px;
 }
-.resultat ul li h3{
+.profile ul li h2{
+    margin:10px 0px 0px 10px;
+    text-align: center;
+    font-weight:300;
+    color:white;
+}
+.resultat ul li h3,.rprofile ul li h3{
 	font-weight:300;
 	color:white;
 	margin:0px 0px 0px 10px;
 }
 
 @media screen and (max-width: 960px){
-	.resultat ul li{
+	.resultat ul li,.profile ul li{
 		width:33.33333333333%;
 	}
 	
 }
 @media screen and (max-width: 674px){
-	.resultat ul li{
+	.resultat ul li,.profile ul li{
 		width:50%;
 	}
         .barre_de_nav li{
@@ -225,7 +242,7 @@ body{
             height: 45px;
             line-height: 45px;
         }
-        .resultat{
+        .resultat,.profile{
             padding: 90px 0px 0px 0px;
         }
         .barre_de_nav li form{
@@ -237,7 +254,7 @@ body{
     .barre_de_nav .full_size{
         width: 100%; 
     }
-    .resultat{
+    .resultat,profile{
         padding: 135px 0px 0px 0px;
      }
 }
