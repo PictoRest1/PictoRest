@@ -12,4 +12,17 @@ $( document ).ready(function() {
 	jQuery("#close_ins").click(function (){
 		jQuery(".inscription").hide("fast");	
 	});
+        jQuery("#close_ajt").click(function (){
+		jQuery(".int_album").hide("fast");	
+	});
+        
+        jQuery(".case").click(function(){
+                
+                jQuery(".case").each(function(){
+                    jQuery(this).removeClass("case_sele");
+                });
+                jQuery(this).addClass("case_sele");
+                jQuery(".int_album").show("fast");
+        });
+        
 });

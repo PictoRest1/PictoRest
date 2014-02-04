@@ -114,7 +114,7 @@ body{
 	color:#3e4dad;
 	margin:0px 0px 20px 0px;	
 }
-.connexion .bloque_co #close_co,.inscription .bloque_ins #close_ins{
+.connexion .bloque_co #close_co,.inscription .bloque_ins #close_ins,#close_ajt{
 	background: black;
 	color: white;
 	width: 25px;
@@ -127,7 +127,7 @@ body{
 	transition:all ease .3s;
 	
 }
-.connexion .bloque_co #close_co:hover, .inscription .bloque_ins #close_ins:hover{
+.connexion .bloque_co #close_co:hover, .inscription .bloque_ins #close_ins:hover,#close_ajt:hover{
 	transition:all ease .3s;
 	background:#900;
 }
@@ -145,7 +145,7 @@ body{
 
 /*Resultat*/
 .resultat,.profile{
-	padding:60px 0px 0px 0px;
+	padding:60px 0px 230px 0px;
 }
 .resultat ul{
 	
@@ -158,16 +158,16 @@ body{
 	list-style:none;
 	position:relative;
 }
-.resultat ul .photo:nth-child(4n+1){
+.resultat ul .photo:nth-child(4n+1),.int_album .liste_photos .photo_petit:nth-child(4n+1){
 	background:#0ca7d3;
 }
-.resultat ul .photo:nth-child(4n+2){
+.resultat ul .photo:nth-child(4n+2),.int_album .liste_photos .photo_petit:nth-child(4n+2){
 	background:#044c62;
 }
-.resultat ul .photo:nth-child(4n+3){
+.resultat ul .photo:nth-child(4n+3),.int_album .liste_photos .photo_petit:nth-child(4n+3){
 	background:#15cbff;
 }
-.resultat ul .photo:nth-child(4n+4){
+.resultat ul .photo:nth-child(4n+4),.int_album .liste_photos .photo_petit:nth-child(4n+4){
 	background:#0785ab;
 }
 .profile ul .album:nth-child(4n+1){
@@ -200,7 +200,7 @@ body{
 	top:0;
 }
 .resultat ul li:hover .selected,.profile ul li:hover .selected{
-	opacity:0.7;
+	opacity:0.5;
 	transition:all ease .5s;	
 }
 .resultat ul li .selected img,.profile ul li .selected img{
@@ -220,12 +220,91 @@ body{
     font-weight:300;
     color:white;
 }
-.resultat ul li h3,.rprofile ul li h3{
+.resultat ul li h3,.profile ul li h3{
 	font-weight:300;
 	color:white;
 	margin:0px 0px 0px 10px;
 }
+/*Profile*/
 
+.profile .new_album{
+    background: #222222;
+
+}
+/*case general*/
+.case_sele{
+    background: #7d0000 !important;
+
+}
+/*Affichage int album*/
+.int_album{
+    background: #CCC;
+    position: fixed;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    max-height: 250px;
+    height: 230px;
+    display: none;
+}
+.int_album .ajout_photo{
+   width: 20%;
+    margin: 0px 0px 0px 0px;
+    padding: 25px 0px 25px 0px;
+    background: #222222;
+    text-align: center;
+    height:100%;
+    float:left;
+}
+.int_album .ajout_photo h3{
+    font-size: 1.2em;
+    color:white;
+    font-weight: 300;
+    margin: 0px 0px 20px 0px;
+}
+.int_album .ajout_photo input{
+     
+	background: #CCC;
+	border: none;
+	padding: 5px 10px;
+	margin: 0px 0px 15px 0px;
+      
+}
+.int_album .liste_photos{
+    float:left;
+    width: 80%;
+   
+    
+}
+.int_album .liste_photos .photo_petit{
+    width: 130px;
+    height: 160px;
+    background: blue;
+    list-style: none;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+    float:left;
+    margin: 10px 0px 0px 0px;
+    cursor: pointer;
+}
+.int_album .liste_photos .photo_petit h3{
+    font-size: 1.2em;
+    color:white;
+    font-weight: 300;
+    margin: 0px 0px 5px 0px;
+}
+.int_album .liste_photos .photo_petit .images{
+    height: 100px;
+    width:100px;
+    background:white;
+}
+#close_ajt{
+    margin: 0;
+    float: right;
+    text-align: center;
+    border: 0;
+}
 @media screen and (max-width: 960px){
 	.resultat ul li,.profile ul li{
 		width:33.33333333333%;
@@ -254,7 +333,7 @@ body{
     .barre_de_nav .full_size{
         width: 100%; 
     }
-    .resultat,profile{
+    .resultat,.profile{
         padding: 135px 0px 0px 0px;
      }
 }
@@ -269,5 +348,7 @@ body{
         .connexion .bloque_co #close_co, .inscription .bloque_ins #close_ins{
             margin: -22px -22px 0px 0px;
         }
-    
+        .resultat ul li,.profile ul li{
+		width:100%;
+	}
 }
