@@ -8,9 +8,9 @@
 	
 	"autoload":{
 		"psr-0":{
-			"Controlleurs": "",
-			"Vues": "",
-			"Modeles": ""
+			"Controleur": "",
+			"Vue": "",
+			"Modele": ""
 		}
 	}
 }
