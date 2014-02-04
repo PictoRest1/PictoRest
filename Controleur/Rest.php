@@ -1,8 +1,7 @@
 <?php
-	/* File : Rest.php
-	 * Author : Arun Kumar Sekar
-	*/
-	class Rest_Rest {
+namespace Controleur;
+
+	class Rest{
 		
 		public $_allow = array();
 		public $_content_type = "application/json";

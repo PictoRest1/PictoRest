@@ -1,5 +1,7 @@
 <?php
-	class Rest_Api extends Rest_Rest {
+namespace Controleur;
+
+class Rest_api extends Rest {
 	
 		public $data = "";
 			
@@ -46,7 +48,7 @@
 		   $numanc=$this->_request['numanc'];
 		   $ret=$my_preco->delete($numanc);
 		   If($ret){
-			   $success = array('status' => "Success", "msg" => "Element supprimé.");
+			   $success = array('status' => "Success", "msg" => "Element supprimï¿½.");
 			   $this->response($this->json($success),200);
 		   }else{
 			   $this->response('',204);
@@ -64,7 +66,7 @@
 	}
 	
 	// Initiiate Library
-	$api = new Rest_Api;
+	$api = new Rest_api;
 	$api->processApi();
 
 ?>

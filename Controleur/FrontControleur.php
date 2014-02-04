@@ -1,5 +1,6 @@
 <?php
 namespace controleur;
+require "Rest_api.php";
 
 class FrontControleur{
 	
@@ -21,7 +22,7 @@ class FrontControleur{
 
                 $app->get( '/rest/users', function() use ($app) {
                         $c = new Rest_api($app) ;
-                        $c->get() ; }
+                        $c->processApi(); }
                 );
 
                 $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
