@@ -1,5 +1,5 @@
 <?php
-namespace Modele;
+namespace pictorest\Modele;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class ConnectionFactory{

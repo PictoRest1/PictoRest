@@ -1,5 +1,5 @@
 <?php
-namespace Modele;
+namespace pictorest\Modele;
 
 class Abonne extends Eloquent {
 	protected $table = 'Abonne';

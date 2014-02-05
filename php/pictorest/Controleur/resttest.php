@@ -1,5 +1,5 @@
 <?php
-namespace Controleur;
+namespace pictorest\Controleur;
 
 class resttest {
     

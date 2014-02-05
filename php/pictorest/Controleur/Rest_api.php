@@ -1,5 +1,5 @@
 <?php
-namespace Controleur;
+namespace pictorest\Controleur;
 
 class Rest_api extends Rest {
 	
