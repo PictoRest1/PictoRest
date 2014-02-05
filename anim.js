@@ -14,6 +14,7 @@ $( document ).ready(function() {
 	});
         jQuery("#close_ajt").click(function (){
 		jQuery(".int_album").hide("fast");	
+                jQuery(".container").css("padding","60px 0px 0px 0px");
 	});
         
         jQuery(".case").click(function(){
@@ -23,6 +24,7 @@ $( document ).ready(function() {
                 });
                 jQuery(this).addClass("case_sele");
                 jQuery(".int_album").show("fast");
+                jQuery(".container").css("padding","60px 0px 230px 0px");
         });
         
 });

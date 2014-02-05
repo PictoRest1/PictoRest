@@ -1,0 +1,23 @@
+{% extends "Home.html.twig" %}
+{% extends "Profile.html.twig" %}
+
+{% block affichage_album %}
+<div class="int_album">
+    <div id="close_ajt" >X</div>
+    <div class="ajout_photo">
+        <h3>Ajouter une photo</h3>
+        <form>
+            <p><input type="text" placeholder="Url"/></p>
+            <p><input type="text" placeholder="Fichier"/></p>
+            <p><button type="submit" class="bouton_general">Ajouter la photo</button></p>
+        </form>
+    </div>
+    <div class="liste_photos">
+         <ul>
+		 	{% for photo%}
+				<li class="photo_petit "><h3>Titre</h3><img class="images" src="" /><div class="selected"></div></li>
+		 	{% endfor %}        
+         </ul>
+    </div>    
+</div>
+{% end block %}
