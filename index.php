@@ -7,5 +7,5 @@ require_once 'vendor/autoload.php';
 \Modele\ConnectionFactory::getConnection();
 
 //Dispatch
-$frontControleur = new \Controleur\FrontControleur();
+$frontControleur = new \php\pictorest\FrontControleur();
 $frontControleur->dispatch();
