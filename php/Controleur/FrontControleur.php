@@ -1,5 +1,5 @@
 <?php
-namespace pictorest\Controleur;
+namespace Controleur;
 \Slim\Slim::registerAutoloader();
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -28,7 +28,6 @@ class FrontControleur{
                 $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
                     $sql = "select * from Abonne where idUtil = :id";
                     try {
-                        $db = ConnectionFactory::getConnection();
                         $stmt = $db->prepare($sql);
                         $stmt->bindParam("id", $id);
                         $stmt->execute();

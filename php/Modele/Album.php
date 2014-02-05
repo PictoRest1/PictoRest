@@ -1,5 +1,5 @@
 <?php
-namespace pictorest\Modele;
+namespace Modele;
 
 class Album extends Eloquent {
 	protected $table = 'Album';
