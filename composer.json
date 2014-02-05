@@ -8,10 +8,7 @@
 	
 	"autoload":{
 		"psr-0":{
-			"Vue": "",
-			"Template": "",
-			"Controleur": "",
-			"Modele": ""
+			"pictorest":"php"
 		}
 	}
 }

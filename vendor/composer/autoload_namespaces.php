@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Vue' => array($baseDir . '/'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Template' => array($baseDir . '/'),
     'Slim' => array($vendorDir . '/slim/slim'),
     'Modele' => array($baseDir . '/'),
     'Illuminate\\Support' => array($vendorDir . '/illuminate/support'),

@@ -4,8 +4,7 @@ namespace Controleur;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Capsule\Manager as DB;
-
-require \Modele\ConnectionFactory.php;
+//require 'Rest_api.php';
 
 class FrontControleur{
 	
