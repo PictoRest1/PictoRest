@@ -1,5 +1,7 @@
 <?php
-namespace Modele;
+namespace php\Modele;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Photo extends Eloquent {
 	protected $table = 'Photo';

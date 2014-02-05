@@ -4,6 +4,8 @@ namespace php\Controleur;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Capsule\Manager as DB;
+use php\Modele\Abonne as Abonne;
+use php\Modele\Utilisateur as Utilisateur;
 //require 'Rest_api.php';
 
 class FrontControleur{
@@ -24,17 +26,23 @@ class FrontControleur{
                         echo 'Bienvenue sur PictoRest'; }
                 );
 
-
-                $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
-                    $sql = "select * from Abonne where idUtil = :id";
+                $app->get( '/rest/users/:id', function($id) use ($app) {
                     try {
-                        $stmt = $db->prepare($sql);
-                        $stmt->bindParam("id", $id);
-                        $stmt->execute();
-                        $users = $stmt->fetchAll(PDO::FETCH_OBJ);
-                        $db = null;
-                        echo '{"user": ' . json_encode($users) . '}';
-                        echo "LALAL";
+                        $user = Utilisateur::find($id);
+                        echo '{"user": ' . json_encode($user) . '}';
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
+                $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
+                    try {
+                        $users = Abonne::where('idUtil', '=', $id)->get() ;
+                        foreach ($users as $user) {
+                            $user = json_encode($user);
+                            //echo $user;
+                            echo '{"user": ' . json_encode($user) . '}';
+                        }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }

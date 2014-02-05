@@ -1,9 +1,11 @@
 <?php
-namespace Modele;
+namespace php\Modele;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Utilisateur extends Eloquent {
 	protected $table = 'Utilisateur';
-	protected $primaryKey = 'idutil';
+	protected $primaryKey = 'idUtil';
 	public $timestamps=false;
         
         public function albums() {
