@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Capsule\Manager as DB;
 use php\Modele\Abonne as Abonne;
 use php\Modele\Utilisateur as Utilisateur;
+use php\Modele\Album as Album;
+use php\Modele\Photo as Photo;
 //require 'Rest_api.php';
 
 class FrontControleur{
@@ -25,58 +27,85 @@ class FrontControleur{
                 $app->get( '/', function() {
                         echo 'Bienvenue sur PictoRest'; }
                 );
-
-                $app->get( '/rest/users/:id', function($id) use ($app) {
-                    try {
-                        $user = Utilisateur::find($id);
-                        echo '{"user": ' . json_encode($user) . '}';
-                    } catch(PDOException $e) {
-                        echo '{"error":{"text":'. $e->getMessage() .'}}';
-                    }
-                });
-                
-                $app->get( '/rest/users/:id/feeds', function($id) use ($app) {
-                    try {
-                        $users = Abonne::where('idUtil', '=', $id)->get() ;
-                        foreach ($users as $user) {
-                            $user = json_encode($user);
-                            //echo $user;
-                            echo '{"user": ' . json_encode($user) . '}';
+                $app->group("/rest", function() use ($app) {
+                    $app->get( '/users/:id', function($id) use ($app) {
+                        try {
+                            $user = Utilisateur::find($id)->toJson();
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
-                    } catch(PDOException $e) {
-                        echo '{"error":{"text":'. $e->getMessage() .'}}';
-                    }
+                    });
+
+                    $app->get( '/users/:id/feeds', function($id) use ($app) {
+                        try {
+                            $users = Abonne::where('idUtil', '=', $id)->get();
+                            foreach ($users as $user) {
+                                echo $user->toJson();
+                            }
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->get( '/users/:id/albums', function($id) use ($app) {
+                        try {
+                            $albums = Album::where('idUtil', '=', $id)->get();
+                            foreach ($albums as $album) {
+                                echo $album->toJson();
+                            }
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->get( '/albums', function() use ($app) {
+                        try {
+                            $albums = Album::all();
+                            foreach ($albums as $album) {
+                                echo $album->toJson();
+                            }
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->get('/albums', function() use ($app) {
+                        try {
+                            $term = $app->request->get('filter');
+                            $albums = Album::where("libelle like %".$term."%");
+                            foreach ($albums as $album) {
+                                echo $album->toJson();
+                            }
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->get('/albums/:id', function($id) use ($app) {
+                        try {
+                            $album = Album::find($id)->toJson();
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->get('/albums/:id/photos', function($id) use ($app) {
+                        try {
+                            $photos = Photo::where('idAlbum', '=', $id)->get();
+                            foreach ($photos as $photo) {
+                                echo $photo->toJson();
+                            }
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
+
+                    $app->post('/users/:id/feeds', function($id) use ($app) {
+                            $abonne = new Abonne();
+                            $abonne->idUtil=$id;$abonne->idAlbum=$idalbum;
+                            $abonne->save();
+                    });
                 });
-
-                $app->get( '/rest/users/:id/albums', function($id) use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get($id) ;}
-                );
-
-                $app->get( '/rest/albums', function() use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get() ; }
-                );
-
-                $app->get('/rest/albums?filter=<term>', function() use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get($id) ;}
-                );
-
-                $app->get('/rest/albums/:id', function($id) use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get($id) ;}
-                );
-
-                $app->get('/rest/albums/:id/photos', function($id) use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->get($id) ;}
-                );
-
-                $app->post('/rest/users/:id/feeds', function($id) use ($app) {
-                        $c = new Rest_api($app) ;
-                        $c->post($id) ;}
-                );
 
                 $app->response->setStatus(200) ;
                 $app->response->headers->set('Content-type','application/json') ; 
