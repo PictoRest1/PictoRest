@@ -3,7 +3,6 @@ namespace php\Controleur;
 \Slim\Slim::registerAutoloader();
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Capsule\Manager as DB;
 use php\Modele\Abonne as Abonne;
 use php\Modele\Utilisateur as Utilisateur;
 use php\Modele\Album as Album;
@@ -112,10 +111,14 @@ class FrontControleur{
                     });
 
                     $app->post('/users/:id/feeds', function($id) use ($app) {
+                        try {
                             $abonne = new Abonne();
                             $idalbum = $app->request->post('filter');
                             $abonne->idUtil=$id;$abonne->idAlbum=$idalbum;
                             $abonne->save();
+                        } catch (ModelNotFoundException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
                     });
                 });
 
