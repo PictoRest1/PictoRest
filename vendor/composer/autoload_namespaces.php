@@ -6,15 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Vue' => array($baseDir . '/'),
+    'php\\' => array($baseDir . '/'),
+    'Vue\\' => array($baseDir . '/'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
-    'Template' => array($baseDir . '/'),
+    'Template\\' => array($baseDir . '/'),
     'Slim' => array($vendorDir . '/slim/slim'),
-    'Modele' => array($baseDir . '/'),
     'Illuminate\\Support' => array($vendorDir . '/illuminate/support'),
     'Illuminate\\Events' => array($vendorDir . '/illuminate/events'),
     'Illuminate\\Database' => array($vendorDir . '/illuminate/database'),
     'Illuminate\\Container' => array($vendorDir . '/illuminate/container'),
-    'Controleur' => array($baseDir . '/'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );

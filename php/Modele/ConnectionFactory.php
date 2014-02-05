@@ -1,17 +1,21 @@
 <?php
-namespace Modele;
+namespace php\Modele;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class ConnectionFactory{
 	public static function getConnection(){
-		$conf_file = 'database.ini';
-		$config = parse_ini_file($conf_file);
-
-		if(!$config) throw new Exception("App::getConnection : could not load config file");
-
-		$capsule = new DB();
-		$capsule->addConnection($config);
-		$capsule->setAsGlobal();
-		$capsule->bootEloquent();
+            $caps = new DB;
+            $caps->addConnection( array(
+                'driver' => 'mysql',
+                'host' => 'localhost',
+                'database' => 'database',
+                'username' => 'root',
+                'password' => '',
+                'charset' => 'utf8',
+                'collation' => 'utf8_unicode_ci',
+                'prefix' => '',
+            ));
+            $caps->setAsGlobal();
+            $caps->bootEloquent();
 	}
 }

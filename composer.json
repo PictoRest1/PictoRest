@@ -8,9 +8,9 @@
 	
 	"autoload":{
 		"psr-0":{
-			"pictorest\\":"",
-                        "Template\\":"",
-                        "Vue\\":""
+			"php\\":"",
+			"Template\\":"",
+			"Vue\\":""
 		}
 	}
 }

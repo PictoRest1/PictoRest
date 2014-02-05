@@ -1,5 +1,5 @@
 <?php
-namespace Controleur;
+namespace php\Controleur;
 \Slim\Slim::registerAutoloader();
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
