@@ -28,9 +28,19 @@ class FrontControleur{
                         echo 'Bienvenue sur PictoRest'; }
                 );
                 $app->group("/rest", function() use ($app) {
+                    $app->get('/users/auth', function() use ($app) {
+                        try {
+                            $identifiant = $app->request->get('userid');
+                            $user = Utilisateur::where('pseudo', '=', $identifiant)->toJson();
+                            echo $user;
+                        } catch(PDOException $e) {
+                            echo '{"error":{"text":'. $e->getMessage() .'}}';
+                        }
+                    });
                     $app->get( '/users/:id', function($id) use ($app) {
                         try {
                             $user = Utilisateur::find($id)->toJson();
+                            echo $user;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
@@ -84,6 +94,7 @@ class FrontControleur{
                     $app->get('/albums/:id', function($id) use ($app) {
                         try {
                             $album = Album::find($id)->toJson();
+                            echo $album;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
@@ -102,6 +113,7 @@ class FrontControleur{
 
                     $app->post('/users/:id/feeds', function($id) use ($app) {
                             $abonne = new Abonne();
+                            $idalbum = $app->request->post('filter');
                             $abonne->idUtil=$id;$abonne->idAlbum=$idalbum;
                             $abonne->save();
                     });
