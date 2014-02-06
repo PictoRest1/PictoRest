@@ -4,10 +4,10 @@
 	<div class="profile container">
 		<ul>
 		
-			{% for photo %}
+			{% for album in album %}
 				<li class="photo case"><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div><h2>Titre</h2><h3>album : blabla</h3></li>
 			{% endfor %}
-				<li class="new_album case"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /><div class="selected"></div></li>
+				 <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>
 			 
 		</ul>
 		<div style="clear: both;"></div>
@@ -15,4 +15,4 @@
 	
 	{% include 'AjoutAlbum_ListePhoto.html.twig' %}
 
-{% end block %}
+{% endblock %}

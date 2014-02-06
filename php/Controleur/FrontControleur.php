@@ -28,15 +28,15 @@ class FrontControleur{
                         
                 $app->get( '/', function() {
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $this->twig->render("Home.html.twig");                     
+                     echo $tmpl->render(array());                     
                  });
                  
                  $app->get( '/profile', function() {
-                    $id = $_SESSION['idUtil']; 
-                    $albums = Albums::findAll()->where('idUtil', '=', $id);
-                    foreach ($albums as $album) {
-                        $tmpl .= $this->twig->loadTemplate('Home.html.twig');
-                    }
+                    $id = /*$_SESSION['idUtil']*/1; 
+                    $albums = Album::where('idUtil', '=', $id);
+                    
+                    $tmpl = $this->twig->loadTemplate('Profile.html.twig');
+                    $tmpl->display(array("album"=>$albums));
                  });
                  
                 $app->get( '/user/:id', function($id) {
@@ -75,7 +75,7 @@ class FrontControleur{
                 $app->get( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
-                        $id = $_SESSION['idUtil'];
+                        $id =1 ;//$_SESSION['idUtil'];
                         $libelle = $app->request->post('libelle');
                         $album->libelle=$libelle;$album->idUtil=$id;$album->date=date(Y-m-d);
                         $album->save();

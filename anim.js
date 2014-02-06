@@ -13,8 +13,9 @@ $( document ).ready(function() {
 		jQuery(".inscription").hide("fast");	
 	});
         jQuery("#close_ajt").click(function (){
-		jQuery(".int_album").hide("fast");	
-                jQuery(".container").css("padding","60px 0px 0px 0px");
+		jQuery(".int_album").hide("fast");
+                
+                jQuery(".container").css("padding-bottom","0px");
 	});
         
 	jQuery(".case").click(function(){
@@ -24,7 +25,7 @@ $( document ).ready(function() {
 			});
 			jQuery(this).addClass("case_sele");
 			jQuery(".int_album").show("fast");
-			jQuery(".container").css("padding","60px 0px 230px 0px");
+			jQuery(".container").css("padding-bottom","230px");
 	});
 	
 	if( jQuery( '.parallax-layer' ) && typeof(jQuery( '.parallax-layer' ).parallax)!="undefined" ){
@@ -42,18 +43,22 @@ function ClickAjoutAlbum(){
 
 function AjoutAlbum(){
     jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
-    idUtil=jQuery.session.get('idUtil');
+    id=1;
+    alert("dea");
+    
     jQuery.ajax({
   	  type: 'POST', // Le type de ma requete
-	  url: '/'+idUtil+'/ajoutalbum', // L'url vers laquelle la requete sera envoyee
+	  url: '/PictoRest/ajoutalbum', // L'url vers laquelle la requete sera envoyee
 	  data: {
-		libelle:jQuery("#nom"+i).html(), // Les donnees que l'on souhaite envoyer au serveur au format JSON
+		libelle:jQuery(".new_album h2").html() // Les donnees que l'on souhaite envoyer au serveur au format JSON
 	  }, 
 	  success: function(data, textStatus, jqXHR) {
 		alert("ok");
 	  },
 	  error: function(jqXHR, textStatus, errorThrown) {
-		alert("erreur");
+		alert(jqXHR);
+                alert( textStatus);
+                alert(textStatus);
 	  }
 	});	
 } 
