@@ -7,7 +7,6 @@ use php\Modele\Abonne as Abonne;
 use php\Modele\Utilisateur as Utilisateur;
 use php\Modele\Album as Album;
 use php\Modele\Photo as Photo;
-//require 'Rest_api.php';
 
 class FrontControleur{
 	
@@ -29,9 +28,15 @@ class FrontControleur{
                         
                 $app->get( '/', function() {
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $this->twig->render("Home.html.twig");
-                        
-                        
+                     echo $this->twig->render("Home.html.twig");                     
+                 });
+                 
+                 $app->get( '/profile', function() {
+                    $id = $_SESSION['idUtil']; 
+                    $albums = Albums::findAll()->where('idUtil', '=', $id);
+                    foreach ($albums as $album) {
+                        $tmpl .= $this->twig->loadTemplate('Home.html.twig');
+                    }
                  });
                  
                 $app->get( '/user/:id', function($id) {
