@@ -17,14 +17,21 @@ $( document ).ready(function() {
                 jQuery(".container").css("padding","60px 0px 0px 0px");
 	});
         
-        jQuery(".case").click(function(){
-                
-                jQuery(".case").each(function(){
-                    jQuery(this).removeClass("case_sele");
-                });
-                jQuery(this).addClass("case_sele");
-                jQuery(".int_album").show("fast");
-                jQuery(".container").css("padding","60px 0px 230px 0px");
-        });
-        
+	jQuery(".case").click(function(){
+			
+			jQuery(".case").each(function(){
+				jQuery(this).removeClass("case_sele");
+			});
+			jQuery(this).addClass("case_sele");
+			jQuery(".int_album").show("fast");
+			jQuery(".container").css("padding","60px 0px 230px 0px");
+	});
+	
+	if( jQuery( '.parallax-layer' ) && typeof(jQuery( '.parallax-layer' ).parallax)!="undefined" ){
+		jQuery( '.parallax-layer' ).parallax({
+			
+			mouseport: jQuery("#port"),
+			yparallax: false
+		});
+	}
 });

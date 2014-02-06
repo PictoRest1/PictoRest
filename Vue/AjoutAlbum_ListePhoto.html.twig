@@ -1,7 +1,3 @@
-{% extends "Home.html.twig" %}
-{% extends "Profile.html.twig" %}
-
-{% block affichage_album %}
 <div class="int_album">
     <div id="close_ajt" >X</div>
     <div class="ajout_photo">
@@ -14,10 +10,9 @@
     </div>
     <div class="liste_photos">
          <ul>
-		 	{% for photo%}
+		 
 				<li class="photo_petit "><h3>Titre</h3><img class="images" src="" /><div class="selected"></div></li>
-		 	{% endfor %}        
+		 	        
          </ul>
     </div>    
 </div>
-{% end block %}

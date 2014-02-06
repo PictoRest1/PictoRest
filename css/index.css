@@ -14,12 +14,12 @@ html,body{
         min-width: 265px;
 }
 body{
-	background:#9d85bf;	
+	background:#DDD;	
 	font-family:'Lato', sans-serif;
 	font-weight:300;
 }
 .bouton_general{
-	background:#3e4dad;
+	background:#e74c3c;
 	padding:5px 10px;
 	color:white;
 	border:none;
@@ -28,12 +28,12 @@ body{
 }
 .bouton_general:hover{
 	transition:all ease 1s;
-	background:#757cab;	
+	background:#ff5b4a;	
 }
 .barre_de_nav{
 	width:100%;
 	position:fixed;
-	background:#000;
+	background: #2c3e50;
         z-index: 1000;
         min-width: 265px;
 }
@@ -53,7 +53,7 @@ body{
         
 }
 .barre_de_nav li:hover{
-	background:#35418a;
+	background:#e74c3c;
 	transition:all ease .5s;	
 	
 }
@@ -69,9 +69,8 @@ body{
 	font-variant:small-caps;
 }
 .barre_de_nav li form{
-	float: left;
-	margin:18px 0px 0px 0px;	
-        margin: 18px auto 0px auto;
+	float: left;	
+        margin: 0px auto 0px auto;
         width: 100%;
 }
 .barre_de_nav li form input{
@@ -159,28 +158,28 @@ body{
 	position:relative;
 }
 .resultat ul .photo:nth-child(4n+1),.int_album .liste_photos .photo_petit:nth-child(4n+1){
-	background:#0ca7d3;
+	background:#1abc9c;
 }
 .resultat ul .photo:nth-child(4n+2),.int_album .liste_photos .photo_petit:nth-child(4n+2){
-	background:#044c62;
+	background:#3498db;
 }
 .resultat ul .photo:nth-child(4n+3),.int_album .liste_photos .photo_petit:nth-child(4n+3){
-	background:#15cbff;
+	background:#16a085;
 }
 .resultat ul .photo:nth-child(4n+4),.int_album .liste_photos .photo_petit:nth-child(4n+4){
-	background:#0785ab;
+	background:#2980b9;
 }
-.profile ul .album:nth-child(4n+1){
-	background:#0ca7d3;
+ul .album:nth-child(4n+1){
+	background:#f1c40f;
 }
-.profile ul .album:nth-child(4n+2){
-	background:#044c62;
+ul .album:nth-child(4n+2){
+	background:#e67e22;
 }
-.profile ul .album:nth-child(4n+3){
-	background:#15cbff;
+ul .album:nth-child(4n+3){
+	background:#f39c12;
 }
-.profile ul .album:nth-child(4n+4){
-	background:#0785ab;
+ul .album:nth-child(4n+4){
+	background:#d35400;
 }
 .resultat ul li .images,.profile ul li .images{
 	height: 200px;
@@ -251,7 +250,7 @@ body{
    width: 20%;
     margin: 0px 0px 0px 0px;
     padding: 25px 0px 25px 0px;
-    background: #222222;
+    background: #2c3e50;
     text-align: center;
     height:100%;
     float:left;
@@ -264,7 +263,7 @@ body{
 }
 .int_album .ajout_photo input{
      
-	background: #CCC;
+	background: #ecf0f1;
 	border: none;
 	padding: 5px 10px;
 	margin: 0px 0px 15px 0px;
@@ -276,6 +275,14 @@ body{
    
     
 }
+.int_album .liste_photos .bandau_blanc{
+    width: 100%;
+    height: 50px;
+    margin: 67px 0px 0px 0px;
+    background: white;
+    position: absolute;
+    
+}
 .int_album .liste_photos .photo_petit{
     width: 130px;
     height: 160px;
@@ -285,7 +292,7 @@ body{
     padding: 15px;
     box-sizing: border-box;
     float:left;
-    margin: 10px 0px 0px 0px;
+    margin: 10px 20px 0px 20px;
     cursor: pointer;
 }
 .int_album .liste_photos .photo_petit h3{
@@ -304,6 +311,30 @@ body{
     float: right;
     text-align: center;
     border: 0;
+}
+
+/*Parallax*/
+#port{
+	overflow:hidden;
+	margin:0px 0px 20px 0px ;
+	
+	height:175px;
+	position:relative;
+	width:100%;
+}
+#port .thumbs_index {
+	height:46px;
+	white-space: nowrap;
+	list-style:none;
+	
+	height:100%;
+         
+	padding:0px 0px 0px 0px;
+
+}
+#port .parallax-layer{
+	position:absolute;
+        width: 1190px;
 }
 @media screen and (max-width: 960px){
 	.resultat ul li,.profile ul li{
@@ -324,9 +355,7 @@ body{
         .resultat,.profile{
             padding: 90px 0px 0px 0px;
         }
-        .barre_de_nav li form{
-            margin:10px auto 0px auto;
-        }
+        
 }
 
 @media screen and (max-width: 515px){

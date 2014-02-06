@@ -1,24 +1,21 @@
+{# Home.html.twig #}
 {% extends "General.html.twig" %}
 
 {% block contenu %}
 	<div class="resultat container">
 		<ul>
 		
-			{% for photo %}
+			
 					<li class="photo case"><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div><h2>Titre</h2><h3>album : blabla</h3></li>
-			{% endfor %}
-			{% for album %}
-					<li class="album case"><h2>Titre</h2><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div></li>
-			{% endfor %}
-			{% for user %}
-					?
-			{% endfor %}
+		
+					<li class="album case"><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div><h2>Titre</h2></li>
+			
+			
 			 
 		</ul>
 		<div style="clear: both;"></div>
 	</div>
 	
-	{% block affichage_album %}
-	{% end block %}
+	{% include 'AjoutAlbum_ListePhoto.html.twig' %}
 
-{% end block %}
+{% endblock %}

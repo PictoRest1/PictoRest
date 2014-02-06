@@ -12,8 +12,10 @@ use php\Modele\Photo as Photo;
 class FrontControleur{
 	
 	public $app;
-	
+	private $twig;
 	public function __construct(){
+                $this->loader = new \Twig_Loader_Filesystem('Vue');
+                $this->twig = new \Twig_Environment($this->loader, array('debug' => true));
 		$this->SLIM = new \Slim\Slim();
 	}
 	
@@ -22,10 +24,15 @@ class FrontControleur{
 	 */
 	public function dispatch(){
 		$app = $this->SLIM;
-		
-                $app->get( '/', function() {
-                        echo 'Bienvenue sur PictoRest'; }
-                );
+		$loader=  $this->loader;
+                $twig=  $this->twig;
+                        
+                $app->get( '/', function() use ($app){
+                     $tmpl = $this->twig->loadTemplate('Home.html.twig');
+                     echo $this->twig->render("Home.html.twig");
+                        
+                        
+                 });
                 $app->group("/rest", function() use ($app) {
                     $app->get('/users/auth', function() use ($app) {
                         try {
@@ -123,7 +130,7 @@ class FrontControleur{
                 });
 
                 $app->response->setStatus(200) ;
-                $app->response->headers->set('Content-type','application/json') ; 
+                $app->response->headers->set('Content-type','text/html') ; 
 		
 		$app->run();
 	}
