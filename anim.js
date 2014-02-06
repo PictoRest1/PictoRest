@@ -63,7 +63,7 @@ function AjoutAlbum(){
 	});	
 } 
 
-function AjoutPhoto(idALbum){
+function AjoutPhoto(idAlbum){
     
     jQuery.ajax({
   	  type: 'POST', 
