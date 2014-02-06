@@ -27,18 +27,42 @@ class FrontControleur{
 		$loader=  $this->loader;
                 $twig=  $this->twig;
                         
-                $app->get( '/', function() use ($app){
+                $app->get( '/', function() {
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
                      echo $this->twig->render("Home.html.twig");
                         
                         
                  });
                  
-                $app->get( '/user/:id', function($id) use ($app) {
+                $app->get( '/user/:id', function($id) {
                     try {
                         $user = Utilisateur::find($id)->toJson();
                         echo $user;
                     } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    } catch (ModelNotFoundException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
+                $app->get( '/album/:id', function($id) {
+                    try {
+                        $album = Album::find($id)->toJson();
+                        echo $album;
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    } catch (ModelNotFoundException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
+                $app->get( '/photo/:id', function($id) {
+                    try {
+                        $photo = Photo::find($id)->toJson();
+                        echo $photo;
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    } catch (ModelNotFoundException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
                 });
@@ -147,7 +171,7 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get( '/users/:id/feeds', function($id) use ($app) {
+                    $app->get( '/users/:id/feeds', function($id) {
                         try {
                             $users = Abonne::where('idUtil', '=', $id)->get();
                             foreach ($users as $user) {
@@ -158,7 +182,7 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get( '/users/:id/albums', function($id) use ($app) {
+                    $app->get( '/users/:id/albums', function($id) {
                         try {
                             $albums = Album::where('idUtil', '=', $id)->get();
                             foreach ($albums as $album) {
@@ -169,7 +193,7 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get( '/albums', function() use ($app) {
+                    $app->get( '/albums', function() {
                         try {
                             $albums = Album::all();
                             foreach ($albums as $album) {
@@ -192,7 +216,7 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get('/albums/:id', function($id) use ($app) {
+                    $app->get('/albums/:id', function($id) {
                         try {
                             $album = Album::find($id)->toJson();
                             echo $album;
@@ -201,7 +225,7 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get('/albums/:id/photos', function($id) use ($app) {
+                    $app->get('/albums/:id/photos', function($id) {
                         try {
                             $photos = Photo::where('idAlbum', '=', $id)->get();
                             foreach ($photos as $photo) {
