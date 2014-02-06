@@ -28,12 +28,12 @@ class FrontControleur{
                         
                 $app->get( '/', function() {
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $this->twig->render("Home.html.twig");                     
+                     echo $tmpl->render(array());                     
                  });
                  
                  $app->get( '/profile', function() {
                     $id = $_SESSION['idUtil']; 
-                    $albums = Albums::findAll()->where('idUtil', '=', $id);
+                    $albums = Albums::where('idUtil', '=', $id);
                     foreach ($albums as $album) {
                         $tmpl .= $this->twig->loadTemplate('Home.html.twig');
                     }
@@ -105,9 +105,14 @@ class FrontControleur{
                         $pseudo = $app->request->post('pseudo');
                         $mail = $app->request->post('mail');
                         $mdp = sha1($app->request->post('mdp'));
-                        $user->pseudo=$pseudo;$user->mail=$mail;$user->mdp=$mdp;
-                        $user->save();
-                        echo "Utilisateur ajouté !";
+                        $mdp2 = sha1($app->request->post('mdp2'));
+                        if ($mdp == $mdp2) {
+                            $user->pseudo=$pseudo;$user->mail=$mail;$user->mdp=$mdp;
+                            $user->save();
+                            echo "Utilisateur ajouté !";
+                        } else {
+                            echo "Erreur, les mots de passe ne correspondent pas";
+                        }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
@@ -158,6 +163,24 @@ class FrontControleur{
                         }
                         $user->delete();
                         echo "Utilisateur supprimé !";
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    } catch (ModelNotFoundException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
+                $app->get( '/connexion', function() use ($app) {
+                    try {
+                        $pseudo = $app->request->post('pseudo');
+                        $mdp = sha1($app->request->post('mdp'));
+                        $user = User::where('pseudo', '=', $pseudo)->where('mdp', '=', $mdp);
+                        if (isset($user) && !empty($user)) {
+                            $_SESSION['pseudo'] = $user->pseudo;
+                            $_SESSION['idUtil'] = $user->idUtil;
+                        } else {
+                            echo "Erreur dans la connexion";
+                        }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
