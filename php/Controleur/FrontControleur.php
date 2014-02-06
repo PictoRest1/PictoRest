@@ -29,10 +29,9 @@ class FrontControleur{
                         
                 $app->get( '/', function() use ($app){
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $this->twig->render("Home.html.twig");
-                        
-                        
+                     echo $this->twig->render("Home.html.twig");    
                  });
+                 
                 $app->group("/rest", function() use ($app) {
                     $app->get('/users/auth', function() use ($app) {
                         try {
