@@ -226,6 +226,13 @@ ul .album:nth-child(4n+4){
 }
 /*Profile*/
 
+#indic_profil {
+    text-align: center;
+    font-size: 1.5em;
+    color: white;
+    background-color: #3e4dad;
+}
+
 .profile .new_album{
     background: #222222;
 

@@ -1,11 +1,15 @@
 <nav class="barre_de_nav">
     <ul>
-        <li class="full_size"><h1><a href="index.html" style="text-decoration:none;">PictoRest</a></h1></li>
+        <li class="full_size"><h1><a href="/PictoRest" style="text-decoration:none;">PictoRest</a></h1></li>
         <li class="full_size"><form><input type="text" /><select><option>albums</option><option>photos</option><option>users</option></select></form></li>
-        <?php if (!isset($_SESSION['idUtil']) { ?>
-        <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
-        <li class="droit" id="connexion"><a href="#" >Connexion</a></li>
-        <?php } ?>
+        {% if session.user is empty %}
+            <li class="droit"><form method="post" action="/PictoRest/rest/users/auth"><input type="text" placeholder="pseudo" name="pseudo"/></form></li>
+            <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
+            <li class="droit" id="connexion"><a href="#" >Connexion</a></li>
+        {% else %}
+            <li class="droit" id="deco"><a href="/PictoRest/deco" >Déconnexion</a></li>
+            <li class="droit" id="deco">Bienvenue {{ session.user.pseudo }}</li>
+        {% endif %}
         <div style="clear:both;"></div>
     </ul>
 </nav>
@@ -14,9 +18,9 @@
     <div id="close_co" >X</div>
         <h2>Connexion</h2>
         
-        <form>
-            <p><input type="text" placeholder="Pseudo"/></p>
-            <p><input type="text" placeholder="Mot de passe"/></p>
+        <form method="post" action="/PictoRest/connexion">
+            <p><input type="text" placeholder="Pseudo" name="pseudo"/></p>
+            <p><input type="password" placeholder="Mot de passe" name="mdp"/></p>
             <p><button type="submit" class="bouton_general">Connexion</button></p>
         </form>
 	</div>
@@ -27,11 +31,11 @@
     <div id="close_ins" >X</div>
         <h2>Inscription</h2>
         
-        <form>
-       		<p><input type="text" placeholder="Pseudo"/></p>
-            <p><input type="email" placeholder="Email"/></p>
-            <p><input type="password" placeholder="Mot de passe"/></p>
-            <p><input type="password" placeholder="Mot de passe"/></p>
+        <form method="post" action="/PictoRest/ajoutuser">
+       		<p><input type="text" placeholder="Pseudo" name="pseudo" /></p>
+            <p><input type="email" placeholder="Email" name="mail" /></p>
+            <p><input type="password" placeholder="Mot de passe" name="mdp" /></p>
+            <p><input type="password" placeholder="Mot de passe" name="mdp2" /></p>
             <p><button type="submit" class="bouton_general">Inscription</button></p>
         </form>
 	</div>
