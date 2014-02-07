@@ -97,15 +97,37 @@ function fermerImgGrand(){
 }
 function affichagePhoto(id){
     console.log("asq");
-    jQuery.getJSON("rest/albums/"+id+"/photos").done(function(data){
-        console.log(data);
-        jQuery.each(data.photos,function(i,photo){
-            jQuery(".thumbs_index").append(
-                "<li class='photo_petit '><h3>"+photo.libelle+"/h3><img class='images' src='' /><div class='selected'></div></li>"
-                
-                
-            );      
-        });     
-       // <li class="photo_petit "><h3>Titre</h3><img class="images" src="" /><div class="selected"></div></li>
+    jQuery.getJSON("/PictoRest/rest/albums/"+id+"/photos").done(function( data ) {
+        console.log(data.libelle);
+      $.each( data.items, function( i, item ) {
+      
+        console.log(i);
+         // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+       
+      });
+      
+       //   for(i=0;i<data.length;i++){
+               
+       //  console.log(data.libelle);
+       //       jQuery(".thumbs_index").append(
+       //            "<li class='photo_petit '><h3>"+data[i]+"</h3><img class='images' src='' /><div class='selected'></div></li>"  
+       //       );      
+       //   }
+        //$.each(datass, function(i, field){
+            
+        
+               // console.log(data[i]);
+            
+        //});
+      // for(photo in data ){
+       //  console.log(data[photo].idPhoto);
+         
+       // }
+        //jQuery.each(data.photos,function(i,photo){
+          //  jQuery(".thumbs_index").append(
+         //       "<li class='photo_petit '><h3>"+photo.libelle+"/h3><img class='images' src='' /><div class='selected'></div></li>"  
+        //    );      
+        //});     
+      
     });
 }

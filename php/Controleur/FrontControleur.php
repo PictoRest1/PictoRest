@@ -278,10 +278,17 @@ class FrontControleur{
 
                     $app->get('/albums/:id/photos', function($id) {
                         try {
+                            $liste_photo=array();
                             $photos = Photo::where('idAlbum', '=', $id)->get();
+                            $i=0;
                             foreach ($photos as $photo) {
-                                echo $photo->toJson();
+                               
+                                $liste_photo[$i]= $photo->toJson();
+                                $i++;
                             }
+                            
+                           
+                            echo json_encode($liste_photo);
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
