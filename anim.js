@@ -24,11 +24,9 @@ $( document ).ready(function() {
 				jQuery(this).removeClass("case_sele");
 			});
 			jQuery(this).addClass("case_sele");
-                        if(jQuery(".int_album").css("display")=="block"){
-                            jQuery(".int_album").hide("fast");
-                        }else{
-                            jQuery(".int_album").show("fast");
-                        }
+                        
+                        jQuery(".int_album").show("fast");
+                        
 			jQuery(".container").css("padding-bottom","230px");
 	});
 	jQuery(".photo,.photo_petit").click(function(){
@@ -48,30 +46,12 @@ $( document ).ready(function() {
 	}
 });
 function ClickAjoutAlbum(){
-    jQuery(".new_album h2").html("<input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><a class='bouton_general b_ajout_album' onclick='AjoutAlbum();'>ok</a>");
+    jQuery(".new_album h2").html("<form id='ajoutalbumform' method=post action='/PictoRest/ajoutalbum' target='_blank'><input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><button class='bouton_general b_ajout_album' type='submit' onclick='AjoutAlbum()' >ok</button></form>");
     jQuery(".new_album").attr('onclick',''); 
 }
 
 function AjoutAlbum(){
     jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
-    id=1;
-    alert("dea");
-    
-    jQuery.ajax({
-  	  type: 'POST', // Le type de ma requete
-	  url: '/PictoRest/ajoutalbum', // L'url vers laquelle la requete sera envoyee
-	  data: {
-		libelle:jQuery(".new_album h2").html() // Les donnees que l'on souhaite envoyer au serveur au format JSON
-	  }, 
-	  success: function(data, textStatus, jqXHR) {
-		alert("ok");
-	  },
-	  error: function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR);
-                alert( textStatus);
-                alert(textStatus);
-	  }
-	});	
 } 
 
 function AjoutPhoto(idAlbum){
@@ -98,7 +78,7 @@ function fermerImgGrand(){
 function affichagePhoto(id){
     console.log("asq");
     jQuery.getJSON("/PictoRest/rest/albums/"+id+"/photos").done(function( data ) {
-        console.log(data.libelle);
+        
       $.each( data.items, function( i, item ) {
       
         console.log(i);
@@ -131,3 +111,4 @@ function affichagePhoto(id){
       
     });
 }
+

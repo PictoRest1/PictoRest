@@ -83,9 +83,9 @@ class FrontControleur{
                         $album = new Album();
                         $id =1 ;//$_SESSION['idUtil'];
                         $libelle = $app->request->post('libelle');
-                        $album->libelle=$libelle;$album->idUtil=$id;$album->date=date(Y-m-d);
+                        $album->libelle=$libelle;$album->idUtil=$id;$album->date=date("Y-m-d");
                         $album->save();
-                        echo "Album créé !";
+                       
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
