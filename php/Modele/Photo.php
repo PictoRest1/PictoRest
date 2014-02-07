@@ -9,7 +9,7 @@ class Photo extends Eloquent {
 	public $timestamps=false;
         
         public function album() {
-            return $this->belongsTo('Album');
+            return $this->belongsTo('Album','idAlbum');
         }
         
         public function user() {

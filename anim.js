@@ -18,16 +18,27 @@ $( document ).ready(function() {
                 jQuery(".container").css("padding-bottom","0px");
 	});
         
-	jQuery(".case").click(function(){
+	jQuery(".album,.new_album").click(function(){
 			
 			jQuery(".case").each(function(){
 				jQuery(this).removeClass("case_sele");
 			});
 			jQuery(this).addClass("case_sele");
-			jQuery(".int_album").show("fast");
+                        if(jQuery(".int_album").css("display")=="block"){
+                            jQuery(".int_album").hide("fast");
+                        }else{
+                            jQuery(".int_album").show("fast");
+                        }
 			jQuery(".container").css("padding-bottom","230px");
 	});
-	
+	jQuery(".photo,.photo_petit").click(function(){
+               // jQuery(".img_grand").remove();
+		var src=jQuery(this).children("img").attr("src");
+		jQuery(this).after('<div class="img_grand" onclick="fermerImgGrand()" ><img src="'+src+'" /></div>');
+		
+        
+        });
+        
 	if( jQuery( '.parallax-layer' ) && typeof(jQuery( '.parallax-layer' ).parallax)!="undefined" ){
 		jQuery( '.parallax-layer' ).parallax({
 			
@@ -63,7 +74,7 @@ function AjoutAlbum(){
 	});	
 } 
 
-function AjoutPhoto(idALbum){
+function AjoutPhoto(idAlbum){
     
     jQuery.ajax({
   	  type: 'POST', 
@@ -80,4 +91,21 @@ function AjoutPhoto(idALbum){
 	  }
     });
 
+}
+function fermerImgGrand(){
+    jQuery(".img_grand").remove()
+}
+function affichagePhoto(id){
+    console.log("asq");
+    jQuery.getJSON("rest/albums/"+id+"/photos").done(function(data){
+        console.log(data);
+        jQuery.each(data.photos,function(i,photo){
+            jQuery(".thumbs_index").append(
+                "<li class='photo_petit '><h3>"+photo.libelle+"/h3><img class='images' src='' /><div class='selected'></div></li>"
+                
+                
+            );      
+        });     
+       // <li class="photo_petit "><h3>Titre</h3><img class="images" src="" /><div class="selected"></div></li>
+    });
 }

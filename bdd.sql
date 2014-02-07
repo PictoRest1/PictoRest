@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 05 Février 2014 à 16:11
--- Version du serveur: 5.5.24-log
--- Version de PHP: 5.3.13
+-- Généré le: Jeu 06 Février 2014 à 15:22
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `pictorest`
 --
+CREATE DATABASE IF NOT EXISTS `pictorest` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `pictorest`;
 
 -- --------------------------------------------------------
 
@@ -52,14 +54,15 @@ CREATE TABLE IF NOT EXISTS `album` (
   `date` date NOT NULL,
   `idUtil` int(11) NOT NULL,
   PRIMARY KEY (`idAlbum`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `album`
 --
 
 INSERT INTO `album` (`idAlbum`, `libelle`, `date`, `idUtil`) VALUES
-(1, 'AlbumTest', '2014-02-05', 1);
+(1, 'AlbumTest', '2014-02-05', 1),
+(2, 'Lolol', '2014-02-06', 2);
 
 -- --------------------------------------------------------
 
@@ -74,14 +77,16 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `date` date NOT NULL,
   `idAlbum` int(11) NOT NULL,
   PRIMARY KEY (`idPhoto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `photo`
 --
 
-INSERT INTO `photo` (`idPhoto`, `libelle`, `description`, `date`, `idAlbum`, `url`) VALUES
-(1, 'test', 'lool', '2014-02-05', 1, 'img/1.jpg');
+INSERT INTO `photo` (`idPhoto`, `libelle`, `description`, `date`, `idAlbum`) VALUES
+(1, 'photo test', 'photo de merde', '2014-02-06', 1),
+(2, 'autre photo', 'connard', '2014-02-06', 1),
+(3, 'trio', 'lalala', '2014-02-06', 2);
 
 -- --------------------------------------------------------
 
@@ -91,11 +96,9 @@ INSERT INTO `photo` (`idPhoto`, `libelle`, `description`, `date`, `idAlbum`, `ur
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idUtil` int(11) NOT NULL AUTO_INCREMENT,
-  `pseudo` varchar(50) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `prenom` varchar(100) NOT NULL,
-  `mdp` varchar(100) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `pseudo` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `mdp` varchar(200) NOT NULL,
   PRIMARY KEY (`idUtil`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -103,9 +106,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`idUtil`, `pseudo`, `nom`, `prenom`, `mdp`, `email`) VALUES
-(1, 'test', 'test', 'test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3 ', 'test@test.fr'),
-(2, 'test2', 'test2', 'test2', '109f4b3c50d7b0df729d299bc6f8e9ef9066971f ', 'test2@test2.fr');
+INSERT INTO `utilisateur` (`idUtil`, `pseudo`, `email`, `mdp`) VALUES
+(1, 'JeanGuy', 'lol@lol.fr', 'blabla'),
+(2, 'Bernard', 'zkzf@flzf.fr', 'trolol');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
