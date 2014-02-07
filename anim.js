@@ -37,7 +37,7 @@ $( document ).ready(function() {
 	}
 });
 function ClickAjoutAlbum(){
-    jQuery(".new_album h2").html("<input id='nomNewAlbum' type='text' placeholder='Titre'></input><a class='bouton_general b_ajout_album' onclick='AjoutAlbum();'>ok</a>");
+    jQuery(".new_album h2").html("<input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><a class='bouton_general b_ajout_album' onclick='AjoutAlbum();'>ok</a>");
     jQuery(".new_album").attr('onclick',''); 
 }
 

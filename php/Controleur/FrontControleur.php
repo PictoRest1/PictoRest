@@ -1,5 +1,7 @@
 <?php
 namespace php\Controleur;
+
+session_start();
 \Slim\Slim::registerAutoloader();
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,6 +18,7 @@ class FrontControleur{
                 $this->loader = new \Twig_Loader_Filesystem('Vue');
                 $this->twig = new \Twig_Environment($this->loader, array('debug' => true));
 		$this->SLIM = new \Slim\Slim();
+                $this->twig->addGlobal("session", $_SESSION);
 	}
 	
 	/**
@@ -181,12 +184,11 @@ class FrontControleur{
                         $pseudo = $app->request->post('pseudo');
                         $mdp = sha1($app->request->post('mdp'));
                         $user = Utilisateur::where('pseudo', '=', $pseudo)->orWhere('mdp', '=', $mdp)->first();
-                        echo $user;
                         if (isset($user) && !empty($user)) {
-                            $_SESSION['pseudo'] = $user->pseudo;
+                            $_SESSION['user'] = $user;
                             $_SESSION['idUtil'] = $user->idUtil;
                             echo "Connexion réussie !";
-                            $app->redirect ('/PictoRest/');
+                            $app->redirect ('/PictoRest/profile');
                         } else {
                             echo "Erreur dans la connexion";
                         }
@@ -197,7 +199,7 @@ class FrontControleur{
                     }
                 });
                 
-                $app->post("/deco", function() {
+                $app->get("/deco", function() use ($app) {
                     try {
                         session_destroy();
                         $app->redirect ('/PictoRest/');

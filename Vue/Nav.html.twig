@@ -1,12 +1,14 @@
 <nav class="barre_de_nav">
     <ul>
-        <li class="full_size"><h1><a href="index.html" style="text-decoration:none;">PictoRest</a></h1></li>
+        <li class="full_size"><h1><a href="/PictoRest" style="text-decoration:none;">PictoRest</a></h1></li>
         <li class="full_size"><form><input type="text" /><select><option>albums</option><option>photos</option><option>users</option></select></form></li>
-        {% if app.session.get('idUtil') is empty %}
+        {% if session.user is empty %}
+            <li class="droit"><form method="post" action="/PictoRest/rest/users/auth"><input type="text" placeholder="pseudo" name="pseudo"/></form></li>
             <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
             <li class="droit" id="connexion"><a href="#" >Connexion</a></li>
         {% else %}
             <li class="droit" id="deco"><a href="/PictoRest/deco" >Déconnexion</a></li>
+            <li class="droit" id="deco">Bienvenue {{ session.user.pseudo }}</li>
         {% endif %}
         <div style="clear:both;"></div>
     </ul>
