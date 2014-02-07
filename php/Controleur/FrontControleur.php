@@ -32,16 +32,15 @@ class FrontControleur{
                  });
                  
                  $app->get( '/profile', function() {
-                    $id = /*$_SESSION['idUtil']*/1; 
-                    $albums = Album::where('idUtil', '=', $id);
-                    
+                    $id = $_SESSION['idUtil']; 
+                    $albums = Album::where('idUtil', '=', $id)->get();
                     $tmpl = $this->twig->loadTemplate('Profile.html.twig');
-                    $tmpl->display(array("album"=>$albums));
+                    $tmpl->display(array("albums"=>$albums));
                  });
                  
                 $app->get( '/user/:id', function($id) {
                     try {
-                        $user = Utilisateur::find($id)->toJson();
+                        $user = Utilisateur::find($id)->first()->toJson();
                         echo $user;
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -52,8 +51,10 @@ class FrontControleur{
                 
                 $app->get( '/album/:id', function($id) {
                     try {
-                        $album = Album::find($id)->toJson();
-                        echo $album;
+                        $album = Album::find($id)->first();
+                        if(!empty($album)){
+                            echo $album->toJson();
+                        }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -63,7 +64,7 @@ class FrontControleur{
                 
                 $app->get( '/photo/:id', function($id) {
                     try {
-                        $photo = Photo::find($id)->toJson();
+                        $photo = Photo::find($id)->first()->toJson();
                         echo $photo;
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -72,7 +73,7 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/ajoutalbum', function() use ($app) {
+                $app->post( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
                         $id =1 ;//$_SESSION['idUtil'];
@@ -85,7 +86,7 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/ajoutphoto', function() use ($app) {
+                $app->post( '/ajoutphoto', function() use ($app) {
                     try {
                         $photo = new Photo();
                         $libelle = $app->request->post('libelle');
@@ -99,31 +100,34 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/ajoutuser', function() use ($app) {
+                $app->post( '/ajoutuser', function() use ($app) {
                     try {
                         $user = new Utilisateur();
                         $pseudo = $app->request->post('pseudo');
                         $mail = $app->request->post('mail');
                         $mdp = sha1($app->request->post('mdp'));
                         $mdp2 = sha1($app->request->post('mdp2'));
-                        if ($mdp == $mdp2) {
-                            $user->pseudo=$pseudo;$user->mail=$mail;$user->mdp=$mdp;
+                        $user2 = Utilisateur::where('idUtil', '=', $pseudo)->first();
+                        if (empty($user2) && ($mdp == $mdp2)) {
+                            $user->pseudo=$pseudo;$user->email=$mail;$user->mdp=$mdp;
                             $user->save();
                             echo "Utilisateur ajouté !";
+                            $app->redirect ('/PictoRest/');
                         } else {
-                            echo "Erreur, les mots de passe ne correspondent pas";
+                            echo "Erreur dans l'inscription";
                         }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
                 });
                 
-                $app->get( '/deletephoto', function() use ($app) {
+                $app->post( '/deletephoto', function() use ($app) {
                     try {
                         $id = $app->request->post('idPhoto');
-                        $photo = Photo::find($id);
+                        $photo = Photo::find($id)->first();
                         $photo->delete();
                         echo "Photo supprimée !";
+                        $app->redirect ('/PictoRest/profile');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -131,16 +135,17 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/deletealbum', function() use ($app) {
+                $app->post( '/deletealbum', function() use ($app) {
                     try {
                         $id = $app->request->post('idAlbum');
-                        $album = Album::find($id);
-                        $photos = Photo::findAll()->where('idAlbum', '=', $id);
+                        $album = Album::find($id)->first();
+                        $photos = Photo::all()->where('idAlbum', '=', $id)->get();
                         foreach ($photos as $photo) {
                             $photo->delete();
                         }
                         $album->delete();
                         echo "Album supprimé !";
+                        $app->redirect ('/PictoRest/profile');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -152,10 +157,10 @@ class FrontControleur{
                     try {
                         $id = $app->request->post('idUtil');
                         $user = Utilisateur::find($id);
-                        $albums = Album::findAll()->where('idUtil', '=', $id);
+                        $albums = Album::all()->where('idUtil', '=', $id)->get();
                         foreach ($albums as $album) {
                             $idAl = $album->id;
-                            $photos = Photo::findAll()->where('idAlbum', '=', $idAl);
+                            $photos = Photo::all()->where('idAlbum', '=', $idAl);
                             foreach ($photos as $photo) {
                                 $photo->delete();
                             }
@@ -163,6 +168,7 @@ class FrontControleur{
                         }
                         $user->delete();
                         echo "Utilisateur supprimé !";
+                        $app->redirect ('/PictoRest/');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -170,14 +176,17 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/connexion', function() use ($app) {
+                $app->post( '/connexion', function() use ($app) {
                     try {
                         $pseudo = $app->request->post('pseudo');
                         $mdp = sha1($app->request->post('mdp'));
-                        $user = User::where('pseudo', '=', $pseudo)->where('mdp', '=', $mdp);
+                        $user = Utilisateur::where('pseudo', '=', $pseudo)->orWhere('mdp', '=', $mdp)->first();
+                        echo $user;
                         if (isset($user) && !empty($user)) {
                             $_SESSION['pseudo'] = $user->pseudo;
                             $_SESSION['idUtil'] = $user->idUtil;
+                            echo "Connexion réussie !";
+                            $app->redirect ('/PictoRest/');
                         } else {
                             echo "Erreur dans la connexion";
                         }
@@ -188,11 +197,21 @@ class FrontControleur{
                     }
                 });
                 
+                $app->post("/deco", function() {
+                    try {
+                        session_destroy();
+                        $app->redirect ('/PictoRest/');
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
                 $app->group("/rest", function() use ($app) {
                     $app->get('/users/auth', function() use ($app) {
                         try {
                             $identifiant = $app->request->get('userid');
-                            $user = Utilisateur::where('pseudo', '=', $identifiant)->toJson();
+                            $user = Utilisateur::where('pseudo', '=', $identifiant)->first()->toJson();
+                            $app->redirect ('/PictoRest/profile');
                             echo $user;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -223,7 +242,7 @@ class FrontControleur{
 
                     $app->get( '/albums', function() {
                         try {
-                            $albums = Album::all();
+                            $albums = Album::all()->get();
                             foreach ($albums as $album) {
                                 echo $album->toJson();
                             }
@@ -235,7 +254,7 @@ class FrontControleur{
                     $app->get('/albums', function() use ($app) {
                         try {
                             $term = $app->request->get('filter');
-                            $albums = Album::where("libelle like %".$term."%");
+                            $albums = Album::where("libelle like %".$term."%")->get();
                             foreach ($albums as $album) {
                                 echo $album->toJson();
                             }
@@ -246,7 +265,7 @@ class FrontControleur{
 
                     $app->get('/albums/:id', function($id) {
                         try {
-                            $album = Album::find($id)->toJson();
+                            $album = Album::find($id)->first()->toJson();
                             echo $album;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -282,4 +301,3 @@ class FrontControleur{
 		$app->run();
 	}
 }
-  
