@@ -30,8 +30,10 @@ class FrontControleur{
                 $twig=  $this->twig;
                         
                 $app->get( '/', function() {
+                    $photos=Photo::all()->take(10);
+                    $albums=Album::all()->take(10);
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $tmpl->render(array());                     
+                     echo $tmpl->render(array("albums"=>$albums,"photos"=>$photos));                     
                  });
                  
                  $app->get( '/profile', function() {
@@ -303,3 +305,4 @@ class FrontControleur{
 		$app->run();
 	}
 }
+  

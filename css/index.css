@@ -355,6 +355,48 @@ ul .album:nth-child(4n+4){
 	position:absolute;
         width: 1190px;
 }
+
+/* Affichage image grand */
+.img_grand{
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;	
+	text-align:center;
+	display: table-cell;
+    vertical-align: middle;
+    background: rgba(0,0,0,0.5);
+    z-index: 100000;
+}
+
+.img_grand img{
+	z-index: 20000;
+	
+	height:auto;
+	border: 3px solid white;
+
+}
+/*description photo*/
+.description_photo{
+    background: rgba(0,0,0,0.5);
+    color: white;
+    position: absolute;
+    bottom: -90px;
+    min-height: 60px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+    transition: all ease 0.7s;
+}
+.photo{
+    overflow: hidden;
+}
+.photo:hover .description_photo{
+    transition: all ease 0.5s;
+    bottom:0px;
+}
 @media screen and (max-width: 960px){
 	.resultat ul li,.profile ul li{
 		width:33.33333333333%;
