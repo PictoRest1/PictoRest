@@ -4,7 +4,7 @@ namespace php\Modele;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Album extends Eloquent {
-	protected $table = 'Album';
+	protected $table = 'album';
 	protected $primaryKey = 'idAlbum';
 	public $timestamps=false;
         

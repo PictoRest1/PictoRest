@@ -33,10 +33,9 @@ class FrontControleur{
                  
                  $app->get( '/profile', function() {
                     $id = /*$_SESSION['idUtil']*/1; 
-                    $albums = Album::where('idUtil', '=', $id);
-                    
+                    $albums = Album::where('idUtil', '=', $id)->get();
                     $tmpl = $this->twig->loadTemplate('Profile.html.twig');
-                    $tmpl->display(array("album"=>$albums));
+                    $tmpl->display(array("albums"=>$albums));
                  });
                  
                 $app->get( '/user/:id', function($id) {
@@ -52,8 +51,10 @@ class FrontControleur{
                 
                 $app->get( '/album/:id', function($id) {
                     try {
-                        $album = Album::find($id)->toJson();
-                        echo $album;
+                        $album = Album::find($id);
+                        if(!empty($album)){
+                            echo $album->toJson();
+                        }
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -72,7 +73,7 @@ class FrontControleur{
                     }
                 });
                 
-                $app->get( '/ajoutalbum', function() use ($app) {
+                $app->post( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
                         $id =1 ;//$_SESSION['idUtil'];

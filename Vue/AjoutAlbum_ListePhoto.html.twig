@@ -9,10 +9,12 @@
         </form>
     </div>
     <div class="liste_photos">
-         <ul>
-		 
+         <div class="bandau_blanc"></div>
+            	<div id="port">
+                	<ul class="thumbs_index index parallax-layer" >
+		 {% for photo in photos %}
 				<li class="photo_petit "><h3>Titre</h3><img class="images" src="" /><div class="selected"></div></li>
-		 	        
+		 {% endfor %}	        
          </ul>
     </div>    
 </div>

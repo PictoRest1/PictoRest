@@ -4,8 +4,9 @@
 	<div class="profile container">
 		<ul>
 		
-			{% for album in album %}
-				<li class="photo case"><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div><h2>Titre</h2><h3>album : blabla</h3></li>
+			{% for album in albums %}
+				
+                                <li class="album case"><h2>{{album.libelle}}</h2><img class="images" src="" /><div class="selected"><img src="images/loupe.svg" /></div></li>
 			{% endfor %}
 				 <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>
 			 
