@@ -103,6 +103,14 @@ function affichagePhoto(id,alb){
     }
     
 }
+function ajoutAbonnement(idAlbum){
+    jQuery.post("/PictoRest/ajoutabonnement", { idAlbum:idAlbum});
+    alert("Album ajouté aux abonnements");
+}
+function deleteAbonnement(idAlbum){
+    jQuery.post("/PictoRest/deleteabonnement", { idAlbum:idAlbum});
+    alert("Album supprimé des abonnements");
+}
 function ouvrireImgGrand(photo){
     var src=jQuery(photo).children("img").attr("src");
     jQuery(photo).after('<div class="img_grand" onclick="fermerImgGrand()" ><img src="'+src+'" /></div>');

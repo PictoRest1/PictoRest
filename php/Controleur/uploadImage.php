@@ -2,7 +2,7 @@
 namespace php\Controleur;
 
 
-$dossier = 'PictoRest/images/';
+$dossier = '/PictoRest/images/';
 $fichier = basename($_FILES['fichier']['name']);
 $taille_maxi = 100000;
 $taille = filesize($_FILES['fichier']['tmp_name']);

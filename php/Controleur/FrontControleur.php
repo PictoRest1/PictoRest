@@ -32,8 +32,9 @@ class FrontControleur{
                 $app->get( '/', function() {
                     $photos=Photo::all()->take(10);
                     $albums=Album::all()->take(10);
+                    $abonnes=Abonne::all();
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
-                     echo $tmpl->render(array("albums"=>$albums,"photos"=>$photos));                     
+                     echo $tmpl->render(array("albums"=>$albums,"photos"=>$photos,"abonnes"=>$abonnes));                     
                  });
                  
                  $app->get( '/profile', function() {
@@ -128,6 +129,38 @@ class FrontControleur{
                     }
                 });
                 
+                $app->post( '/ajoutabonnement', function() use ($app) {
+                    try {
+                        $abonne = new Abonne();
+                        $idal = $app->request->post('idAlbum');
+                        $iduser = $_SESSION['idUtil'];
+                        $abonne2 = Abonne::where('idUtil', '=', $iduser)->where('idAlbum', '=', $idal)->first();
+                        if (empty($abonne2)) {
+                            $abonne->idUtil=$iduser;$abonne->idAlbum=$idal;
+                            $abonne->save();
+                            echo "Abonnement ajouté !";
+                        } else {
+                            echo "Vous êtes déjà abonné";
+                        }
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
+                $app->post( '/deleteabonnement', function() use ($app) {
+                    try {
+                        $ida = $app->request->post('idAlbum');
+                        $idu = $_SESSION['idUtil'];
+                        $abonne = Abonne::where('idAlbum', '=', $ida)->where('idUtil', '=', $idu)->first();
+                        $abonne->delete();
+                        echo "Abonnement supprimé !";
+                    } catch(PDOException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    } catch (ModelNotFoundException $e) {
+                        echo '{"error":{"text":'. $e->getMessage() .'}}';
+                    }
+                });
+                
                 $app->post( '/deletephoto', function() use ($app) {
                     try {
                         $id = $app->request->post('idPhoto');
@@ -146,7 +179,7 @@ class FrontControleur{
                     try {
                         $id = $app->request->post('idAlbum');
                         $album = Album::find($id)->first();
-                        $photos = Photo::all()->where('idAlbum', '=', $id)->get();
+                        $photos = Photo::where('idAlbum', '=', $id)->get();
                         foreach ($photos as $photo) {
                             $photo->delete();
                         }
@@ -164,10 +197,10 @@ class FrontControleur{
                     try {
                         $id = $app->request->post('idUtil');
                         $user = Utilisateur::find($id);
-                        $albums = Album::all()->where('idUtil', '=', $id)->get();
+                        $albums = Album::where('idUtil', '=', $id)->get();
                         foreach ($albums as $album) {
                             $idAl = $album->id;
-                            $photos = Photo::all()->where('idAlbum', '=', $idAl);
+                            $photos = Photo::where('idAlbum', '=', $idAl)->get();
                             foreach ($photos as $photo) {
                                 $photo->delete();
                             }
