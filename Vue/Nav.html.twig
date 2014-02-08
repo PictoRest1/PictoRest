@@ -1,15 +1,15 @@
 <nav class="barre_de_nav">
     <ul>
-        <li class="full_size"><h1><a href="/PictoRest" style="text-decoration:none;">PictoRest</a></h1></li>
+        <li class="full_size" id="pictorest"><h1><a href="/PictoRest" style="text-decoration:none;">PictoRest</a></h1></li>
         <li class="full_size"><form><input type="text" /><select><option>albums</option><option>photos</option><option>users</option></select></form></li>
         {% if session.user is empty %}
             <li class="droit"><form method="post" action="/PictoRest/rest/users/auth"><input type="text" placeholder="pseudo" name="pseudo"/></form></li>
             <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
-            <li class="droit" id="connexion"><a href="#" >Connexion</a></li>
+            <li class="droit full_size" id="connexion"><a href="#" >Connexion</a></li>
         {% else %}
-            <li style="margin-left: 20%; font-size: 1.3em;"><a href="/PictoRest/profile">Profil</a></p>
-            <li class="droit" id="deco"><a href="/PictoRest/deco" >Déconnexion</a></li>
-            <li class="droit" id="deco">Bienvenue {{ session.user.pseudo }}</li>
+            <li class="full_size" style="margin-left: 20%; font-size: 1.3em"><a href="/PictoRest/profile" >Profil</a></li>
+            <li class="droit full_size" id="deco"><a href="/PictoRest/deco" >Déconnexion</a></li>
+            <li class="droit full_size " id="deco">Bienvenue {{ session.user.pseudo }}</li>
         {% endif %}
         <div style="clear:both;"></div>
     </ul>

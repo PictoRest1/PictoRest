@@ -24,15 +24,14 @@ $( document ).ready(function() {
 				jQuery(this).removeClass("case_sele");
 			});
 			jQuery(this).addClass("case_sele");
-                        if(jQuery(".int_album").css("display")=="block"){
-                            jQuery(".int_album").hide("fast");
-                        }else{
-                            jQuery(".int_album").show("fast");
-                        }
+                        
+                        jQuery(".int_album").show("fast");
+                        
 			jQuery(".container").css("padding-bottom","230px");
 	});
-	jQuery(".photo,.photo_petit").click(function(){
+	jQuery(".photo_petit").click(function(){
                // jQuery(".img_grand").remove();
+               console.log("ds");
 		var src=jQuery(this).children("img").attr("src");
 		jQuery(this).after('<div class="img_grand" onclick="fermerImgGrand()" ><img src="'+src+'" /></div>');
 		
@@ -48,31 +47,20 @@ $( document ).ready(function() {
 	}
 });
 function ClickAjoutAlbum(){
-    jQuery(".new_album h2").html("<input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><a class='bouton_general b_ajout_album' onclick='AjoutAlbum();'>ok</a>");
+    jQuery(".new_album h2").html("<div id='ajoutalbumform' ><input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><button class='bouton_general b_ajout_album'  onclick='AjoutAlbum()' >ok</button></div>");
     jQuery(".new_album").attr('onclick',''); 
 }
 
 function AjoutAlbum(){
-    jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
-    id=1;
-    alert("dea");
+   // jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
+   // jQuery(".new_album").addClass("album");
+   // jQuery(".new_album").attr("onclick","affichagePhoto()");
+   // jQuery(".new_album").removeClass("new_album");
     
-    jQuery.ajax({
-  	  type: 'POST', // Le type de ma requete
-	  url: '/PictoRest/ajoutalbum', // L'url vers laquelle la requete sera envoyee
-	  data: {
-		libelle:jQuery(".new_album h2").html() // Les donnees que l'on souhaite envoyer au serveur au format JSON
-	  }, 
-	  success: function(data, textStatus, jqXHR) {
-		alert("ok");
-	  },
-	  error: function(jqXHR, textStatus, errorThrown) {
-		alert(jqXHR);
-                alert( textStatus);
-                alert(textStatus);
-	  }
-	});	
-} 
+    
+   // jQuery(".profile ul").append(' <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>');
+    jQuery.post("/PictoRest/ajoutalbum",{ libelle:jQuery("#nomNewAlbum").val()});   
+}
 
 function AjoutPhoto(idAlbum){
     
@@ -93,41 +81,34 @@ function AjoutPhoto(idAlbum){
 
 }
 function fermerImgGrand(){
-    jQuery(".img_grand").remove()
+    jQuery(".img_grand").remove();
 }
-function affichagePhoto(id){
-    console.log("asq");
-    jQuery.getJSON("/PictoRest/rest/albums/"+id+"/photos").done(function( data ) {
-        console.log(data.libelle);
-      $.each( data.items, function( i, item ) {
-      
-        console.log(i);
-         // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-       
-      });
-      
-       //   for(i=0;i<data.length;i++){
-               
-       //  console.log(data.libelle);
-       //       jQuery(".thumbs_index").append(
-       //            "<li class='photo_petit '><h3>"+data[i]+"</h3><img class='images' src='' /><div class='selected'></div></li>"  
-       //       );      
-       //   }
-        //$.each(datass, function(i, field){
-            
-        
-               // console.log(data[i]);
-            
-        //});
-      // for(photo in data ){
-       //  console.log(data[photo].idPhoto);
-         
-       // }
-        //jQuery.each(data.photos,function(i,photo){
-          //  jQuery(".thumbs_index").append(
-         //       "<li class='photo_petit '><h3>"+photo.libelle+"/h3><img class='images' src='' /><div class='selected'></div></li>"  
-        //    );      
-        //});     
-      
-    });
+function affichagePhoto(id,alb){
+    if(!jQuery(alb).hasClass("case_sele")){
+        jQuery.getJSON("/PictoRest/rest/albums/"+id+"/photos").done(function( data ) {
+
+              for(i=0;i<data.length;i++){
+                  jQuery(".thumbs_index").append(
+                       "<li class='photo_petit ' onclick='ouvrireImgGrand(this);' ><h3>"+data[i].libelle+"</h3><img class='images' src='"+data[i].url+"'/><div class='selected'></div></li>"  
+                 );      
+             }
+           calculWidthParallax(data.length);
+        });
+    
+    }
+    
+}
+function ouvrireImgGrand(photo){
+    var src=jQuery(photo).children("img").attr("src");
+    jQuery(photo).after('<div class="img_grand" onclick="fermerImgGrand()" ><img src="'+src+'" /></div>');
+    
+}
+function calculWidthParallax(nbli){
+    width=0;
+    for(i=0;i<nbli;i++){
+            width+=170;
+    }
+     jQuery(".thumbs_index").css("width",width+"px"); 
+   
+    
 }

@@ -85,7 +85,7 @@ class FrontControleur{
                         $libelle = $app->request->post('libelle');
                         $album->libelle=$libelle;$album->idUtil=$id;$album->date=date("Y-m-d");
                         $album->save();
-                        echo "Album créé !";
+                       
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
@@ -280,17 +280,10 @@ class FrontControleur{
 
                     $app->get('/albums/:id/photos', function($id) {
                         try {
-                            $liste_photo=array();
-                            $photos = Photo::where('idAlbum', '=', $id)->get();
-                            $i=0;
-                            foreach ($photos as $photo) {
-                               
-                                $liste_photo[$i]= $photo->toJson();
-                                $i++;
-                            }
-                            
-                           
-                            echo json_encode($liste_photo);
+                      
+                            $photos = Photo::where('idAlbum', '=', $id)->get()->toJson();
+                         
+                            echo $photos;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
