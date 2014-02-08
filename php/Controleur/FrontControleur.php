@@ -81,7 +81,7 @@ class FrontControleur{
                 $app->post( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
-                        $id =1 ;//$_SESSION['idUtil'];
+                        $id =$_SESSION['idUtil'];
                         $libelle = $app->request->post('libelle');
                         $album->libelle=$libelle;$album->idUtil=$id;$album->date=date("Y-m-d");
                         $album->save();
@@ -278,17 +278,10 @@ class FrontControleur{
 
                     $app->get('/albums/:id/photos', function($id) {
                         try {
-                            $liste_photo=array();
-                            $photos = Photo::where('idAlbum', '=', $id)->get();
-                            $i=0;
-                            foreach ($photos as $photo) {
-                               
-                                $liste_photo[$i]= $photo->toJson();
-                                $i++;
-                            }
-                            
-                           
-                            echo json_encode($liste_photo);
+                      
+                            $photos = Photo::where('idAlbum', '=', $id)->get()->toJson();
+                         
+                            echo $photos;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
