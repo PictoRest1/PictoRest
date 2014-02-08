@@ -11,9 +11,9 @@
                     {% for album in albums %}
 		    <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)"><img class="images" src="images/01.jpg" /><div class="selected"><img src="images/loupe.svg" /></div>
                         {% if session.idUtil == album.idUtil %}
-                            <li id="x">X</li>
+                            <li id="x" onclick="affichageDelete({{album.idAlbum}},this)"><a href="#">X</a></li>
                     {% else %}
-                            <li id="plus">+</li>
+                            <li id="plus" onclick="ajoutAbonnement({{album.idAlbum}},this)"><a href="#">+</a></li>
                     {% endif %}<h2>{{album.libelle}}</h2></li>
 		    {% endfor %}	
 			
