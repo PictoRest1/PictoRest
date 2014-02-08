@@ -7,9 +7,8 @@
             <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
             <li class="droit full_size" id="connexion"><a href="#" >Connexion</a></li>
         {% else %}
-            <li class="full_size" style="margin-left: 20%; font-size: 1.3em"><a href="/PictoRest/profile" >Profil</a></li>
             <li class="droit full_size" id="deco"><a href="/PictoRest/deco" >Déconnexion</a></li>
-            <li class="droit full_size " id="deco">Bienvenue {{ session.user.pseudo }}</li>
+            <li class="droit full_size " id="deco"><a href="PictoRest/profile">Bienvenue {{ session.user.pseudo }}</a></li>
         {% endif %}
         <div style="clear:both;"></div>
     </ul>
