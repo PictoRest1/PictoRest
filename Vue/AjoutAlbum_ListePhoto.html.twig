@@ -2,9 +2,10 @@
     <div id="close_ajt" >X</div>
     <div class="ajout_photo">
         <h3>Ajouter une photo</h3>
-        <form>
+        <form enctype="multipart/form-data" method="post" action="/PictoRest/ajoutphoto">
             <p><input type="text" placeholder="Url"/></p>
-            <p><input type="text" placeholder="Fichier"/></p>
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+            <p><input name="fichier" type="file" placeholder="Fichier"/></p>
             <p><button type="submit" class="bouton_general">Ajouter la photo</button></p>
         </form>
     </div>

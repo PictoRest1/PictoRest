@@ -81,9 +81,9 @@ class FrontControleur{
                 $app->post( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
-                        $id =1 ;//$_SESSION['idUtil'];
+                        $id = $_SESSION['idUtil'];
                         $libelle = $app->request->post('libelle');
-                        $album->libelle=$libelle;$album->idUtil=$id;$album->date=date(Y-m-d);
+                        $album->libelle=$libelle;$album->idUtil=$id;$album->date=date("Y-m-d");
                         $album->save();
                         echo "Album créé !";
                     } catch(PDOException $e) {
@@ -93,13 +93,15 @@ class FrontControleur{
                 
                 $app->post( '/ajoutphoto', function() use ($app) {
                     try {
-                        $photo = new Photo();
+                        uploadImage::upload();
+                        /*$photo = new Photo();
                         $libelle = $app->request->post('libelle');
                         $description = $app->request->post('description');
                         $id = $app->request->post('idAlbum');
-                        $photo->libelle=$libelle;$photo->description=$description;$photo->date=date(Y-m-d);$photo->idAlbum=$id;
-                        $photo->save();
+                        $photo->libelle=$libelle;$photo->description=$description;$photo->date=date("Y-m-d");$photo->idAlbum=$id;
+                        $photo->save();*/
                         echo "Photo ajoutée !";
+                        //$app->redirect ('/PictoRest/profile');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
