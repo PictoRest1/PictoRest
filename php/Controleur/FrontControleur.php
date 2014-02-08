@@ -81,7 +81,7 @@ class FrontControleur{
                 $app->post( '/ajoutalbum', function() use ($app) {
                     try {
                         $album = new Album();
-                        $id =$_SESSION['idUtil'];
+                        $id = $_SESSION['idUtil'];
                         $libelle = $app->request->post('libelle');
                         $album->libelle=$libelle;$album->idUtil=$id;$album->date=date("Y-m-d");
                         $album->save();
@@ -97,9 +97,10 @@ class FrontControleur{
                         $libelle = $app->request->post('libelle');
                         $description = $app->request->post('description');
                         $id = $app->request->post('idAlbum');
-                        $photo->libelle=$libelle;$photo->description=$description;$photo->date=date(Y-m-d);$photo->idAlbum=$id;
+                        $photo->libelle=$libelle;$photo->description=$description;$photo->date=date("Y-m-d");$photo->idAlbum=$id;
                         $photo->save();
                         echo "Photo ajoutée !";
+                        $app->redirect ('/PictoRest/profile');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
