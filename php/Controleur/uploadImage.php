@@ -1,29 +1,40 @@
 <?php
 namespace php\Controleur;
 
-class uploadImage {
 
-    public static function upload() {
-        $nomOrigine = $_FILES['fichier']['name'];
-        $elementsChemin = pathinfo($nomOrigine);
-        $extensionFichier = $elementsChemin['extension'];
-        $extensionsAutorisees = array("jpeg", "jpg", "gif", "svg");
-        if (!(in_array($extensionFichier, $extensionsAutorisees))) {
-            echo "Le fichier n'a pas l'extension attendue";
-        } else {    
-            // Copie dans le repertoire du script avec un nom
-            // incluant l'heure a la seconde pres 
-            $repertoireDestination = dirname('/PictoRest/images/');
-            $nomDestination = "image_".date("YmdH").".".$extensionFichier;
-
-            if (move_uploaded_file($_FILES["fichier"]["tmp_name"],$repertoireDestination.$nomDestination)) {
-                echo "Le fichier temporaire ".$_FILES["fichier"]["tmp_name"].
-                        " a été déplacé vers ".$repertoireDestination.$nomDestination;
-            } else {
-                echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
-                        "Le déplacement du fichier temporaire a échoué".
-                        " vérifiez l'existence du répertoire ".$repertoireDestination;
-            }
-        }
-    }
+$dossier = 'PictoRest/images/';
+$fichier = basename($_FILES['fichier']['name']);
+$taille_maxi = 100000;
+$taille = filesize($_FILES['fichier']['tmp_name']);
+$extensions = array('.png', '.gif', '.jpg', '.jpeg', '.svg');
+$extension = strrchr($_FILES['fichier']['name'], '.'); 
+//Début des vérifications de sécurité...
+if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
+{
+     $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg ou svg';
+}
+if($taille>$taille_maxi)
+{
+     $erreur = 'Le fichier est trop gros.';
+}
+if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
+{
+     //On formate le nom du fichier ici...
+     $fichier = strtr($fichier, 
+          'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
+          'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+     $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+     if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+     {
+          echo 'Upload effectué avec succès !';
+          header ('Location: /PictoRest/profile');
+     }
+     else //Sinon (la fonction renvoie FALSE).
+     {
+          echo 'Echec de l\'upload !';
+     }
+}
+else
+{
+     echo $erreur;
 }

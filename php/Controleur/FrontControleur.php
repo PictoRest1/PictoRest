@@ -93,15 +93,14 @@ class FrontControleur{
                 
                 $app->post( '/ajoutphoto', function() use ($app) {
                     try {
-                        uploadImage::upload();
-                        /*$photo = new Photo();
+                        $photo = new Photo();
                         $libelle = $app->request->post('libelle');
                         $description = $app->request->post('description');
                         $id = $app->request->post('idAlbum');
                         $photo->libelle=$libelle;$photo->description=$description;$photo->date=date("Y-m-d");$photo->idAlbum=$id;
-                        $photo->save();*/
+                        $photo->save();
                         echo "Photo ajoutée !";
-                        //$app->redirect ('/PictoRest/profile');
+                        $app->redirect ('/PictoRest/profile');
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
