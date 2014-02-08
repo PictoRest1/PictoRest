@@ -9,7 +9,7 @@ class Album extends Eloquent {
 	public $timestamps=false;
         
         public function photos() {
-            return $this->hasMany('Photo');
+            return $this->hasMany('Photo','idAlbum');
         }
 
 }

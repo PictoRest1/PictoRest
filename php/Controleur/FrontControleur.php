@@ -31,6 +31,7 @@ class FrontControleur{
                         
                 $app->get( '/', function() {
                     $photos=Photo::all()->take(10);
+                    //$idalbum=$photos->album();
                     $albums=Album::all()->take(10);
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
                      echo $tmpl->render(array("albums"=>$albums,"photos"=>$photos));                     
@@ -146,7 +147,7 @@ class FrontControleur{
                     try {
                         $id = $app->request->post('idAlbum');
                         $album = Album::find($id)->first();
-                        $photos = Photo::all()->where('idAlbum', '=', $id)->get();
+                        $photos = Photo::where('idAlbum', '=', $id)->get();
                         foreach ($photos as $photo) {
                             $photo->delete();
                         }
@@ -164,10 +165,10 @@ class FrontControleur{
                     try {
                         $id = $app->request->post('idUtil');
                         $user = Utilisateur::find($id);
-                        $albums = Album::all()->where('idUtil', '=', $id)->get();
+                        $albums = Album::where('idUtil', '=', $id)->get();
                         foreach ($albums as $album) {
                             $idAl = $album->id;
-                            $photos = Photo::all()->where('idAlbum', '=', $idAl);
+                            $photos = Photo::where('idAlbum', '=', $idAl);
                             foreach ($photos as $photo) {
                                 $photo->delete();
                             }

@@ -57,8 +57,9 @@ function AjoutAlbum(id){
     jQuery.post("/PictoRest/ajoutalbum",{ libelle:jQuery("#nomNewAlbum").val()});   
     jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
     jQuery(".new_album").addClass("album");
+    jQuery(".new_album h2").before("<div id='x' onclick='suppAlbum("+id+",this);' class='supp_plus'>X</div>");
     jQuery(".new_album img").after("<div class='selectionne'></div>");
-     jQuery(".new_album img").attr("src","");
+    jQuery(".new_album img").attr("src","");
     jQuery(".new_album").attr("onclick","affichagePhoto("+id+")");
     jQuery(".new_album").removeClass("new_album");
     jQuery(".profile ul").append(' <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>');
@@ -115,5 +116,11 @@ function calculWidthParallax(nbli){
     }
      jQuery(".thumbs_index").css("width",width+"px"); 
    
+    
+}
+function suppAlbum(idAlbum,album){
+    jQuery.post("/PictoRest/deletealbum",{idAlbum:idAlbum});
+    jQuery(album).parent().remove();
+    
     
 }

@@ -11,9 +11,9 @@
                     {% for album in albums %}
 		    <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)">
                     {% if session.idUtil == album.idUtil %}
-                            <div id="x" class="supp_plus">X</div>
-                    {% else %}
-                            <div id="plus" class="supp_plus">+</div>
+                            <div id="x" class="supp_plus" onclick="suppAlbum({{album.idAlbum}},this);">X</div>
+                    {% elseif session.user is not empty %}
+                            <div id="plus" class="supp_plus" >+</div>
                     {% endif %}
                             <h2>{{album.libelle}}</h2>
                            <img class="images" src="images/01.jpg" /><div class="selected"><img src="images/loupe.svg" /></div>
