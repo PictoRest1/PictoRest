@@ -46,20 +46,22 @@ $( document ).ready(function() {
 		});
 	}
 });
-function ClickAjoutAlbum(){
-    jQuery(".new_album h2").html("<div id='ajoutalbumform' ><input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><button class='bouton_general b_ajout_album'  onclick='AjoutAlbum()' >ok</button></div>");
+function ClickAjoutAlbum(id){
+    
+    jQuery(".new_album h2").html("<div id='ajoutalbumform' ><input id='nomNewAlbum' type='text' placeholder='Titre' name='libelle'></input><button class='bouton_general b_ajout_album'  onclick='AjoutAlbum("+id+")' >ok</button></div>");
     jQuery(".new_album").attr('onclick',''); 
 }
 
-function AjoutAlbum(){
-   // jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
-   // jQuery(".new_album").addClass("album");
-   // jQuery(".new_album").attr("onclick","affichagePhoto()");
-   // jQuery(".new_album").removeClass("new_album");
-    
-    
-   // jQuery(".profile ul").append(' <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>');
+function AjoutAlbum(id){
+    id=id+1;
     jQuery.post("/PictoRest/ajoutalbum",{ libelle:jQuery("#nomNewAlbum").val()});   
+    jQuery(".new_album h2").html(jQuery("#nomNewAlbum").val());
+    jQuery(".new_album").addClass("album");
+    jQuery(".new_album img").after("<div class='selectionne'></div>");
+     jQuery(".new_album img").attr("src","");
+    jQuery(".new_album").attr("onclick","affichagePhoto("+id+")");
+    jQuery(".new_album").removeClass("new_album");
+    jQuery(".profile ul").append(' <li class="new_album case" onclick="ClickAjoutAlbum();"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>');
 }
 
 function AjoutPhoto(idAlbum){
@@ -85,6 +87,9 @@ function fermerImgGrand(){
 }
 function affichagePhoto(id,alb){
     if(!jQuery(alb).hasClass("case_sele")){
+        jQuery(".thumbs_index li").each(function(){
+            jQuery(this).remove();
+        });
         jQuery.getJSON("/PictoRest/rest/albums/"+id+"/photos").done(function( data ) {
 
               for(i=0;i<data.length;i++){

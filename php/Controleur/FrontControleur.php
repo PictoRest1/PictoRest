@@ -39,8 +39,9 @@ class FrontControleur{
                  $app->get( '/profile', function() {
                     $id = $_SESSION['idUtil']; 
                     $albums = Album::where('idUtil', '=', $id)->get();
+                    $lastalbum=Album::where('idUtil', '=', $id)->orderBy('idAlbum', 'desc')->first();
                     $tmpl = $this->twig->loadTemplate('Profile.html.twig');
-                    $tmpl->display(array("albums"=>$albums));
+                    $tmpl->display(array("albums"=>$albums,"lastalbum"=>$lastalbum));
                  });
                  
                 $app->get( '/user/:id', function($id) {
