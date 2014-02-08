@@ -6,15 +6,18 @@
 		<ul>
                     {% for photo in photos %}
 			
-                    <li class="photo case"><img class="images" src="{{photo.url}}" /><div class="selected"><img src="images/loupe.svg" /></div><h2>{{photo.libelle}}</h2><h3>album : </h3><div class="description_photo">{{photo.description}}</div></li>
+                    <li class="photo case"><h2>{{photo.libelle}}</h2><img class="images" src="{{photo.url}}" /><div class="selected"><img src="images/loupe.svg" /></div><h3>album : </h3><div class="description_photo">{{photo.description}}</div></li>
                     {% endfor %}
                     {% for album in albums %}
-		    <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)"><img class="images" src="images/01.jpg" /><div class="selected"><img src="images/loupe.svg" /></div>
-                        {% if session.idUtil == album.idUtil %}
-                            <li id="x">X</li>
+		    <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)">
+                    {% if session.idUtil == album.idUtil %}
+                            <div id="x" class="supp_plus">X</div>
                     {% else %}
-                            <li id="plus">+</li>
-                    {% endif %}<h2>{{album.libelle}}</h2></li>
+                            <div id="plus" class="supp_plus">+</div>
+                    {% endif %}
+                            <h2>{{album.libelle}}</h2>
+                           <img class="images" src="images/01.jpg" /><div class="selected"><img src="images/loupe.svg" /></div>
+                        </li>
 		    {% endfor %}	
 			
 			 

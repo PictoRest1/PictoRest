@@ -223,6 +223,7 @@ ul .album:nth-child(4n+4){
 	font-weight:300;
 	color:white;
 	margin:0px 0px 0px 10px;
+        text-align: center;
 }
 .profile ul li h2{
     margin:10px 0px 0px 10px;
@@ -234,6 +235,21 @@ ul .album:nth-child(4n+4){
 	font-weight:300;
 	color:white;
 	margin:0px 0px 0px 10px;
+}
+.supp_plus{
+    background: black;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1px 7px 1px 7px;
+    z-index: 100;
+    transition:all ease .3s;
+}
+.supp_plus:hover{
+    transition:all ease .3s;
+    background:#900;
+
 }
 /*Profile*/
 
