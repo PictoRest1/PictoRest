@@ -28,7 +28,7 @@ USE `pictorest`;
 -- Structure de la table `abonne`
 --
 
-CREATE TABLE IF NOT EXISTS `abonne` (
+CREATE TABLE IF NOT EXISTS `Abonne` (
   `idAbonne` int(11) NOT NULL AUTO_INCREMENT,
   `idUtil` int(11) NOT NULL,
   `idAlbum` int(11) NOT NULL,
@@ -48,7 +48,7 @@ INSERT INTO `abonne` (`idAbonne`, `idUtil`, `idAlbum`) VALUES
 -- Structure de la table `album`
 --
 
-CREATE TABLE IF NOT EXISTS `album` (
+CREATE TABLE IF NOT EXISTS `Album` (
   `idAlbum` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   `date` date NOT NULL,
@@ -70,7 +70,7 @@ INSERT INTO `album` (`idAlbum`, `libelle`, `date`, `idUtil`) VALUES
 -- Structure de la table `photo`
 --
 
-CREATE TABLE IF NOT EXISTS `photo` (
+CREATE TABLE IF NOT EXISTS `Photo` (
   `idPhoto` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   `description` text,
@@ -94,7 +94,7 @@ INSERT INTO `photo` (`idPhoto`, `libelle`, `description`, `date`, `idAlbum`) VAL
 -- Structure de la table `utilisateur`
 --
 
-CREATE TABLE IF NOT EXISTS `utilisateur` (
+CREATE TABLE IF NOT EXISTS `Utilisateur` (
   `idUtil` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
