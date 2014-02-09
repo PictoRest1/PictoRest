@@ -221,7 +221,7 @@ class FrontControleur{
                     try {
                         $pseudo = $app->request->post('pseudo');
                         $mdp = sha1($app->request->post('mdp'));
-                        $user = Utilisateur::where('pseudo', '=', $pseudo)->orWhere('mdp', '=', $mdp)->first();
+                        $user = Utilisateur::where('pseudo', '=', $pseudo)->where('mdp', '=', $mdp)->first();
                         if (isset($user) && !empty($user)) {
                             $_SESSION['user'] = $user;
                             $_SESSION['idUtil'] = $user->idUtil;
