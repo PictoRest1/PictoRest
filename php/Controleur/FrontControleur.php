@@ -31,7 +31,6 @@ class FrontControleur{
                         
                 $app->get( '/', function() {
                     $photos=Photo::all()->take(10);
-                    //$idalbum=$photos->album();
                     $albums=Album::all()->take(10);
                     $abonnes=Abonne::all();
                      $tmpl = $this->twig->loadTemplate('Home.html.twig');
