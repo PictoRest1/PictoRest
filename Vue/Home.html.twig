@@ -15,10 +15,10 @@
                                 <div id="x" class="supp_plus" onclick="suppAlbum({{album.idAlbum}},this);">X</div>
                         {% elseif session.user is not empty %}
                                 {% for abonne in abonnes %}
-                                    {% if (abonne.idAlbum == Album.idAlbum) and (abonne.idUtil == session.idUtil) %}
-                                        <div id="plus" class="supp_plus" onclick="deleteAbonnement({{album.idAlbum}})">-</div>
+                                    {% if ((abonne.idAlbum == album.idAlbum) and (abonne.idUtil == session.idUtil)) %}
+                                        <div class="moins supp_plus" onclick="deleteAbonnement({{album.idAlbum}})">-</div>
                                     {% else %}
-                                        <div id="plus" class="supp_plus" onclick="ajoutAbonnement({{album.idAlbum}})">+</div>
+                                        <div class="plus supp_plus" onclick="ajoutAbonnement({{album.idAlbum}})">+</div>
                                     {% endif %}
                                 {% endfor %}
                         {% endif %}
