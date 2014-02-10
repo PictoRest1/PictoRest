@@ -41,8 +41,10 @@ class FrontControleur{
                     $id = $_SESSION['idUtil']; 
                     $albums = Album::where('idUtil', '=', $id)->get();
                     $lastalbum=Album::where('idUtil', '=', $id)->orderBy('idAlbum', 'desc')->first();
+                    $abonnes=Abonne::where('idUtil', '=', $_SESSION['idUtil']);
+                    $albums2 = Album::all($abonnes->idAlbum);
                     $tmpl = $this->twig->loadTemplate('Profile.html.twig');
-                    $tmpl->display(array("albums"=>$albums,"lastalbum"=>$lastalbum));
+                    $tmpl->display(array("albums"=>$albums,"lastalbum"=>$lastalbum, "abonnes", $albums2));
                  });
                  
                 $app->get( '/user/:id', function($id) {
