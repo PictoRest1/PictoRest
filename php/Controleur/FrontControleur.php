@@ -276,6 +276,7 @@ class FrontControleur{
                             $users = Abonne::where('idUtil', '=', $id)->get();
                             foreach ($users as $user) {
                                 echo $user->toJson();
+                                echo "<br/>";
                             }
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -298,6 +299,7 @@ class FrontControleur{
                             $albums = Album::all();
                             foreach ($albums as $album) {
                                 echo $album->toJson();
+                                echo "<br/>";
                             }
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -331,8 +333,10 @@ class FrontControleur{
                         try {
                       
                             $photos = Photo::where('idAlbum', '=', $id)->get()->toJson();
-                         
-                            echo $photos;
+                            foreach ($photos as $photo) {
+                                echo $photo;
+                                echo "<br/>";
+                            }
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
