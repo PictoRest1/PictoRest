@@ -47,7 +47,12 @@ $( document ).ready(function() {
 				jQuery(this).removeClass("case_sele");
 			});
 			jQuery(this).addClass("case_sele");
+                        if (jQuery(this).children(".supp_plus").hasClass("moins") || jQuery(this).children(".supp_plus").hasClass("plus")){
+                            jQuery(".ajout_photo").css("display","none");
                         
+                        }else{
+                             jQuery(".ajout_photo").css("display","block");
+                        }
                         jQuery(".int_album").show("fast");
                        
 			jQuery(".container").css("padding-bottom","230px");
@@ -136,6 +141,9 @@ function affichagePhoto(id,alb){
 function ajoutAbonnement(idAlbum){
     jQuery.post("/PictoRest/ajoutabonnement", { idAlbum:idAlbum});
     alert("Album ajouté aux abonnements");
+    jQuery(".supp_plus").html("-");
+    jQuery(".supp_plus").attr("onclick","deleteAbonnement("+idAlbum+")");
+    jQuery(".supp_plus").attr("id","moins");
 }
 function deleteAbonnement(idAlbum){
     jQuery.post("/PictoRest/deleteabonnement", { idAlbum:idAlbum});
