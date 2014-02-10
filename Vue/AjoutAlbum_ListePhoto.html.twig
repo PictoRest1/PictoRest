@@ -2,10 +2,14 @@
     <div id="close_ajt" >X</div>
     <div class="ajout_photo">
         <h3>Ajouter une photo</h3>
-        <form enctype="multipart/form-data" method="post" action="/PictoRest/php/Controleur/uploadimage.php">
-            <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-            <p><input name="fichier" type="file" placeholder="Fichier"/></p>
-            <p><button type="submit" name="envoyer" class="bouton_general">Ajouter la photo</button></p>
+      
+        <form id="foorm" enctype="multipart/form-data" >
+            <input type="hidden" name="idAlbum" id="idAlbum" value="" readonly="readonly" style="display:none;">
+            <input  class="bouton_general"  type="file" name="photo" id="image" value="">
+            <div class="bouton_general bouton_ajout_photo" id="bouton_cachant"> Choisir un fichier</div>
+            <input type="text" name="nom_photo" id="nom_photo" style="margin: 40px 0px 15px 0px;" value="" placeholder="Nom">
+            <input type="text" name="description_photo" id="description_photo" value="" placeholder="Description">
+            <div class="bouton_general bouton_ajout_photo" id="upload" onclick="AjoutPhoto();"> Valider</div>
         </form>
     </div>
     <div class="liste_photos">

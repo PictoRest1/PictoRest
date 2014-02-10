@@ -96,14 +96,22 @@ class FrontControleur{
                 
                 $app->post( '/ajoutphoto', function() use ($app) {
                     try {
+                        $imagename = $_FILES["photo"]["name"];            
+                        $unique_id = md5(uniqid(rand(), true));
+                        $filetype = strrchr($imagename, '.');
+                        $new_upload = 'upload' . $unique_id . $filetype;
+                        move_uploaded_file($_FILES["photo"]["tmp_name"], "images/".$new_upload);
+                     
+                     
                         $photo = new Photo();
-                        $libelle = $app->request->post('libelle');
-                        $description = $app->request->post('description');
-                        $id = $app->request->post('idAlbum');
+                        $libelle = $_POST["nom_photo"];
+                        $description = $_POST["description_photo"];
+                        $id = $_POST["idAlbum"];
                         $photo->libelle=$libelle;$photo->description=$description;$photo->date=date("Y-m-d");$photo->idAlbum=$id;
+                        $photo->url="images/".$new_upload;
                         $photo->save();
-                        echo "Photo ajoutée !";
-                        $app->redirect ('/PictoRest/profile');
+                        
+                       
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     }
@@ -179,14 +187,14 @@ class FrontControleur{
                 $app->post( '/deletealbum', function() use ($app) {
                     try {
                         $id = $app->request->post('idAlbum');
-                        $album = Album::find($id)->first();
+                        $album = Album::find($id);
                         $photos = Photo::where('idAlbum', '=', $id)->get();
                         foreach ($photos as $photo) {
                             $photo->delete();
                         }
                         $album->delete();
-                        echo "Album supprimé !";
-                        $app->redirect ('/PictoRest/profile');
+                        
+                       
                     } catch(PDOException $e) {
                         echo '{"error":{"text":'. $e->getMessage() .'}}';
                     } catch (ModelNotFoundException $e) {
@@ -221,7 +229,7 @@ class FrontControleur{
                     try {
                         $pseudo = $app->request->post('pseudo');
                         $mdp = sha1($app->request->post('mdp'));
-                        $user = Utilisateur::where('pseudo', '=', $pseudo)->orWhere('mdp', '=', $mdp)->first();
+                        $user = Utilisateur::where('pseudo', '=', $pseudo)->Where('mdp', '=', $mdp)->first();
                         if (isset($user) && !empty($user)) {
                             $_SESSION['user'] = $user;
                             $_SESSION['idUtil'] = $user->idUtil;
@@ -282,7 +290,7 @@ class FrontControleur{
 
                     $app->get( '/albums', function() {
                         try {
-                            $albums = Album::all()->get();
+                            $albums = Album::all();
                             foreach ($albums as $album) {
                                 echo $album->toJson();
                             }
@@ -291,13 +299,15 @@ class FrontControleur{
                         }
                     });
 
-                    $app->get('/albums', function() use ($app) {
+                    $app->get('/albumss', function() use ($app) {
                         try {
-                            $term = $app->request->get('filter');
-                            $albums = Album::where("libelle like %".$term."%")->get();
-                            foreach ($albums as $album) {
-                                echo $album->toJson();
-                            }
+                            $term = $app->request->get('query');
+                           
+                            $albums = Album::where("libelle","like","%".$term."%")->get()->toJson();
+                           
+                                                        
+                           echo ($albums);
+                            
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
                         }
