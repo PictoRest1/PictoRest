@@ -18,6 +18,14 @@ $( document ).ready(function() {
                        for(i=0;i<donnee.length;i++){
                          jQuery(".resultat ul").append('<li class="album case" onclick="affichagePhoto('+donnee[i].idAlbum+',this)"><div id="x" onclick="suppAlbum('+donnee[i].idAlbum+',this);" class="supp_plus">X</div><h2>'+donnee[i].libelle+'</h2><img class="images" src="" /><div class="selectionne"></div><div class="selected"><img src="images/loupe.svg" /></div></li>');
                        }
+                       jQuery(".profile ul li").each(function() {
+                            if(!jQuery(this).hasClass("new_album")){
+                                jQuery(this).remove();
+                            }
+                       });
+                       for(i=0;i<donnee.length;i++){
+                           jQuery(".profile ul .new_album").before('<li class="album case" onclick="affichagePhoto('+donnee[i].idAlbum+',this)"><div id="x" onclick="suppAlbum('+donnee[i].idAlbum+',this);" class="supp_plus">X</div><h2>'+donnee[i].libelle+'</h2><img class="images" src="" /><div class="selectionne"></div><div class="selected"><img src="images/loupe.svg" /></div></li>');
+                       }
                     }
                 });
             }
@@ -97,13 +105,13 @@ function AjoutPhoto(id){
     var form = document.getElementById('foorm');
     var formData = new FormData(form);
     
-    
    $.ajax({
             url: "/PictoRest/ajoutphoto",
             type: 'POST',
             dataType: 'html',
             processData: false,
             contentType: false,
+            idAlbum: id,
             data: formData
         }).done(function() {
            nom= jQuery("#nom_photo").val();
@@ -148,6 +156,9 @@ function ajoutAbonnement(idAlbum){
 function deleteAbonnement(idAlbum){
     jQuery.post("/PictoRest/deleteabonnement", { idAlbum:idAlbum});
     alert("Album supprimé des abonnements");
+    jQuery(".supp_plus").html("+");
+    jQuery(".supp_plus").attr("onclick","ajoutAbonnement("+idAlbum+")");
+    jQuery(".supp_plus").attr("id","plus");
 }
 function ouvrireImgGrand(photo){
     var src=jQuery(photo).children("img").attr("src");

@@ -1,9 +1,8 @@
 <nav class="barre_de_nav">
     <ul>
         <li class="full_size" id="pictorest"><h1><a href="/PictoRest" style="text-decoration:none;">PictoRest</a></h1></li>
-        <li class="full_size"><form><input type="text"  id="recherche" ><select><option>albums</option><option>photos</option><option>users</option></select></form></li>
+        <li class="full_size"><form><input type="text"  id="recherche" placeholder="Rechercher un album"></form></li>
         {% if session.user is empty %}
-            <li class="droit"><form method="post" action="/PictoRest/rest/users/auth"><input type="text" placeholder="pseudo" name="pseudo"/></form></li>
             <li class="droit" id="inscription"><a href="#">S'inscrire</a></li>
             <li class="droit full_size" id="connexion"><a href="#" >Connexion</a></li>
         {% else %}

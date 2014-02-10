@@ -6,10 +6,7 @@
 		
 			{% for album in albums %}
 				
-                                <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)"><div id="x" onclick="suppAlbum({{album.idAlbum}},this);" class="supp_plus">X</div><h2>{{album.libelle}}</h2><img class="images" src="" /><div class="selectionne"></div><div class="selected"><img src="images/loupe.svg" /></div></li>
-			{% endfor %}
-                        {% for abonne in abonnes %}
-                                <li class="album case" onclick="affichagePhoto({{abonne.idAlbum}},this)"><div class="moins supp_plus" onclick="deleteAbonnement({{abonne.idAlbum}})">-</div><h2>{{abonne.libelle}}</h2><img class="images" src="" /><div class="selectionne"></div><div class="selected"><img src="images/loupe.svg" /></div></li>
+                                <li class="album case" onclick="affichagePhoto({{album.idAlbum}},this)"><div id="x" onclick="suppAlbum({{album.idAlbum}},this);" class="supp_plus">X</div><h2>{{album.libelle}}</h2><img class="images" src="images/album.svg" /><div class="selectionne"></div><div class="selected"><img src="images/loupe.svg" /></div></li>
 			{% endfor %}	
                                 <li class="new_album case" onclick="ClickAjoutAlbum({{lastalbum.idAlbum}});"><h2>Ajouter un album</h2><img class="images" src="images/Ajout_album.svg" /></li>
 			

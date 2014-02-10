@@ -40,11 +40,15 @@ class FrontControleur{
                  $app->get( '/profile', function() {
                     $id = $_SESSION['idUtil']; 
                     $albums = Album::where('idUtil', '=', $id)->get();
-                    $lastalbum=Album::where('idUtil', '=', $id)->orderBy('idAlbum', 'desc')->first();
-                    $abonnes=Abonne::where('idUtil', '=', $_SESSION['idUtil']);
-                    $albums2 = Album::all($abonnes->idAlbum);
+                    $lastalbum = Album::where('idUtil', '=', $id)->orderBy('idAlbum', 'desc')->first();
+                    $abonnes = Abonne::where('idUtil', '=', $_SESSION['idUtil']);
+                    $albums2 = array();
+                    foreach ($abonnes as $abonne) {
+                        $a = Album::find($abonne->idAlbum);
+                        array_push($albums2 , $a);
+                    }
                     $tmpl = $this->twig->loadTemplate('Profile.html.twig');
-                    $tmpl->display(array("albums"=>$albums,"lastalbum"=>$lastalbum, "abonnes", $albums2));
+                    $tmpl->display(array("albums"=>$albums,"lastalbum"=>$lastalbum, "abonnes"=>$albums2));
                  });
                  
                 $app->get( '/user/:id', function($id) {
@@ -316,7 +320,7 @@ class FrontControleur{
 
                     $app->get('/albums/:id', function($id) {
                         try {
-                            $album = Album::find($id)->first()->toJson();
+                            $album = Album::find($id)->toJson();
                             echo $album;
                         } catch(PDOException $e) {
                             echo '{"error":{"text":'. $e->getMessage() .'}}';
